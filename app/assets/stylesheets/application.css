@@ -13,3 +13,30 @@
  *= require bootstrap-theme
  *= require custom
  */
+#presentation {
+    width: 43%;
+    float: left;
+    text-align: center;
+}
+
+footer {
+    float: right;
+    margin-right: 6%;
+}
+
+#loginform {
+    width: 55%;
+    float: right;
+}
+
+#mainave {
+    font-size: 142.8571429%; /* (20px/14px)*100 */
+}
+
+.alert, .notice {
+  border: none;
+}
+
+.margsupbtn {
+    margin: 2% 0 0 0;
+}
