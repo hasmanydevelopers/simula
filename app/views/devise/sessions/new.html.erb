@@ -1,5 +1,8 @@
-<div class="jumbotron">
-    <h1>Sign in</h1>
+<div class="jumbotron" id="presentation">
+    <h3>Bienvenido a la aplicación de control de sesiones de terapia simulada.</h3>
+</div>
+<div class="jumbotron" id="loginform">
+    <h2>Sign in</h2>
 
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <div><%= f.label :email %><br />

@@ -1,10 +1,24 @@
-#applogo {
-    text-shadow: -1px -1px 1px #000;
-    font-size: 285.7142857%; /* (40px/14px)*100 */
+#presentation {
+    width: 43%;
+    float: left;
+}
+
+footer {
+    float: right;
+    margin-right: 6%;
+}
+
+#loginform {
+    width: 55%;
+    float: right;
 }
 
 #mainave {
     font-size: 142.8571429%; /* (20px/14px)*100 */
+}
+
+.alert, .notice {
+  border: none;
 }
 
 .margsupbtn {
