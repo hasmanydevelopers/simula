@@ -18,8 +18,6 @@ gem 'rspec-rails'
 
 gem 'capybara'
 
-gem 'bootstrap'
-
 # Use SCSS for sty  lesheets
 gem 'sass-rails', '~> 4.0.0'
 
