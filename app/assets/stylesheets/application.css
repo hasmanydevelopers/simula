@@ -11,7 +11,7 @@
  *= require bootstrap
  *= require bootstrap-theme
  *= require_self
- *= require_tree .
+ *= require custom
  */
 #presentation {
     width: 43%;
