@@ -1,0 +1,46 @@
+#presentation {
+    width: 43%;
+    float: left;
+    text-align: center;
+}
+
+#loginform {
+    width: 55%;
+    float: right;
+}
+
+footer {
+    float: right;
+}
+
+#mainave {
+    font-size: 142.8571429%; /* (20px/14px)*100 */
+}
+
+.alert, .notice {
+  border: none;
+}
+
+.margsupbtn {
+    margin: 2% 0 0 0;
+}
+
+/* < 768px */
+
+@media screen and (max-width: 768px) {
+
+    #presentation {
+        width: 100%;
+        float: none;
+    }
+
+    #loginform {
+        width: 100%;
+        float: none;
+    }
+
+    footer {
+        float: none;
+    }
+
+}
