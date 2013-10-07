@@ -4,14 +4,14 @@
     text-align: center;
 }
 
-footer {
-    float: right;
-    margin-right: 6%;
-}
-
 #loginform {
     width: 55%;
     float: right;
+}
+
+footer {
+    float: right;
+    margin-right: 0%;
 }
 
 #mainave {
@@ -24,4 +24,25 @@ footer {
 
 .margsupbtn {
     margin: 2% 0 0 0;
+}
+
+/* < 768px */
+
+@media screen and (max-width: 768px) {
+
+    #presentation {
+        width: 100%;
+        float: none;
+    }
+
+    #loginform {
+        width: 100%;
+        float: none;
+    }
+
+    footer {
+        float: none;
+        margin-left: 0%;
+    }
+
 }
