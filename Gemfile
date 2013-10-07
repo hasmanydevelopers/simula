@@ -9,6 +9,8 @@ gem 'pg'
 
 gem 'devise'
 
+gem 'activeadmin', github: 'gregbell/active_admin'
+
 group :development do
     # Use sqlite3 as the database for Active Record
     gem 'sqlite3'
