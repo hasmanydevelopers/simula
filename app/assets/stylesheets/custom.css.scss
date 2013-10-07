@@ -1,13 +1,4 @@
-#presentation {
-    width: 43%;
-    float: left;
-    text-align: center;
-}
-
-#loginform {
-    width: 55%;
-    float: right;
-}
+/* Layout */
 
 footer {
     float: right;
@@ -21,13 +12,42 @@ footer {
   border: none;
 }
 
+/* General */
+
 .margsupbtn {
     margin: 2% 0 0 0;
+}
+
+.devise-error-messages {
+    color: red;
+    font-size: 100%;
+
+}
+
+/* Sign in page */
+
+#presentation {
+    width: 43%;
+    float: left;
+    text-align: center;
+}
+
+#loginform {
+    width: 55%;
+    float: right;
 }
 
 /* < 768px */
 
 @media screen and (max-width: 768px) {
+
+    /* Layout */
+
+    footer {
+        float: none;
+    }
+
+    /* Sign in page */
 
     #presentation {
         width: 100%;
@@ -36,10 +56,6 @@ footer {
 
     #loginform {
         width: 100%;
-        float: none;
-    }
-
-    footer {
         float: none;
     }
 
