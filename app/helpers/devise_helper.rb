@@ -1,7 +1,8 @@
 module DeviseHelper
 
   def devise_error_messages!
-    return "" if resource.nil? || resource.errors.empty?
+    return "" if resource.nil?
+    return "" if resource.errors.empty?
 
     message =  content_tag(:p, resource.errors.full_messages.first, :class => "alert alert-danger")
 
