@@ -4,12 +4,10 @@ module DeviseHelper
     return "" if resource.nil?
     return "" if resource.errors.empty?
 
-    message =  content_tag(:p, resource.errors.full_messages.first, :class => "alert alert-danger")
-
     html = <<-HTML
-    <div id="error_explanation">
-      #{message}
-    </div>
+    <p class="alert alert-danger">
+      #{resource.errors.full_messages.first}
+    </p>
     HTML
 
     html.html_safe
