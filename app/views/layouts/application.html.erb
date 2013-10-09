@@ -30,7 +30,7 @@
           <ul class="nav nav-pills pull-right" id="mainave">
             <% if user_signed_in? %>
               <li>Logged in as <strong><%= current_user.email %></strong></li>
-              <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
+              <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
               <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
             <% end %>
           </ul>
