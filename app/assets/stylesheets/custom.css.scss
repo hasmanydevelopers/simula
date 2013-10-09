@@ -39,6 +39,32 @@ footer {
     float: right;
 }
 
+/* Preferences page */
+
+i {
+    font-size: 80%;
+}
+
+.movil-input {
+    display: none;
+}
+
+::-webkit-input-placeholder { /* Chrome, Safari */
+   font-size: 80%;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-size: 80%;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-size: 80%;
+}
+
+:-ms-input-placeholder {  /* Internet Explorer */
+   font-size: 80%;
+}
+
 /* < 768px */
 
 @media screen and (max-width: 768px) {
@@ -59,6 +85,20 @@ footer {
     #loginform {
         width: 100%;
         float: none;
+    }
+
+    /* Preferences page */
+
+    i {
+        display: none;
+    }
+
+    .desktop-input {
+        display: none;
+    }
+
+    .movil-input {
+        display: inline-block;
     }
 
 }
