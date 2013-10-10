@@ -1,4 +1,4 @@
-ActiveAdmin.register Supervisor do
+ActiveAdmin.register Users::Supervisor do
   index do
     column :email
     column :current_sign_in_at

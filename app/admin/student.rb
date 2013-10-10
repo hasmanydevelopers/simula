@@ -1,4 +1,4 @@
-ActiveAdmin.register Student do
+ActiveAdmin.register Users::Student do
   index do
     column :email
     column :current_sign_in_at
