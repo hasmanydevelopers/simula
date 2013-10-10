@@ -27,16 +27,27 @@
 <body>
       <div class="container">
         <div class="header">
-          <ul class="nav nav-pills pull-right" id="mainave">
-            <% if user_signed_in? %>
-              <li>Logged in as <strong><%= current_user.email %></strong></li>
-              <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
-              <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-            <% end %>
-          </ul>
+          <% if user_signed_in? %>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <% end %>
+          <div class="navbar-collapse collapse pull-right">
+            <ul class="nav navbar-nav" id="mainave">
+              <% if user_signed_in? %>
+                <li>Logged in as <strong><%= current_user.email %></strong></li>
+                <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              <% end %>
+            </ul>
+          </div>
           <a id="logo" href="/"><h1 class="text-muted">Simula</h1></a>
         </div>
+      </div>
 
+      <div class="container">
         <% if notice %>
           <p class="alert alert-success"><%= notice %></p>
         <% end %>
