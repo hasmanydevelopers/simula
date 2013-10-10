@@ -14,6 +14,11 @@ footer {
 
 #mainave {
     font-size: 142.8571429%; /* (20px/14px)*100 */
+    float:right
+}
+
+button {
+    background-color: #65a9d7;
 }
 
 .alert, .notice {
@@ -71,12 +76,20 @@ i {
 
 /* < 768px */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
     /* Layout */
 
     footer {
         float: none;
+    }
+
+    #mainave {
+        float: none;
+    }
+
+    #welcome-msg {
+        display: none;
     }
 
     /* Sign in page */
