@@ -12,6 +12,9 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs "User Details" do
       f.input :email
+      f.input :first_name
+      f.input :last_name
+      f.input :type
       f.input :password
       f.input :password_confirmation
     end
@@ -20,7 +23,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit user: [:email, :password, :password_confirmation]
+      params.permit user: [:email, :first_name, :last_name, :type, :password, :password_confirmation]
     end
   end
 end
