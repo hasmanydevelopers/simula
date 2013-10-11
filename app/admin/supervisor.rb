@@ -22,7 +22,7 @@ ActiveAdmin.register Users::Supervisor do
 
   controller do
     def permitted_params
-      params.permit user: [:email, :first_name, :last_name, :password, :password_confirmation]
+      params.permit users_supervisor: [:email, :first_name, :last_name, :password, :password_confirmation]
     end
   end
 end
