@@ -4,21 +4,39 @@ footer {
     float: right;
 }
 
-#logo h1 {
-    display: inline-block;
-}
-
-#logo:hover {
-    text-decoration: none;
+#logo {
+    font-size: 285.714285714%; /* (40px/14px)*100 */
 }
 
 #mainave {
     font-size: 142.8571429%; /* (20px/14px)*100 */
-    float:right
+    float:right;
 }
 
-button {
-    background-color: #65a9d7;
+#welcome-msg {
+    color: #1069B6;
+    font-weight: bold;
+    &:hover {
+        color: #1069B6;
+    }
+}
+
+#welcome-msg-btn {
+    color: #1069B6;
+    font-weight: bold;
+    margin: 0 0 0 0;
+    font-size: 142.8571429%; /* (20px/14px)*100 */
+    &:hover {
+        color: #1069B6;
+    }
+}
+
+li {
+    font-weight: bold;
+}
+
+.navbar.navbar-default {
+    border: none;
 }
 
 .alert, .notice {

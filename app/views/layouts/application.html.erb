@@ -26,23 +26,29 @@
 
 <body>
       <div class="container">
-        <div class="header">
-          <a id="logo" href="/"><h1 class="text-muted">Simula</h1></a>
-          <% if user_signed_in? %>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              Welcome, Lucia
-            </button>
-          <% end %>
-          <div class="navbar-collapse collapse" id="mainave">
-            <ul class="nav navbar-nav">
-              <% if user_signed_in? %>
-                <li id="welcome-msg">Welcome, Lucia</li>
+        <nav class="navbar navbar-default" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <% if user_signed_in? %>
+              <button id="welcome-msg-btn" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span>Welcome</span>
+              </button>
+            <% end %>
+            <a class="navbar-brand" id="logo" href="/">Simula</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <% if user_signed_in? %>
+              <ul class="nav navbar-nav" id="mainave">
+                <li><a id="welcome-msg">Welcome</a></li>
                 <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
+              </ul>
+            <% end %>
+          </div><!-- /.navbar-collapse -->
+        </nav>
       </div>
 
       <div class="container">
