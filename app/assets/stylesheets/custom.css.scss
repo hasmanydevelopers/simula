@@ -4,12 +4,39 @@ footer {
     float: right;
 }
 
-#logo:hover {
-    text-decoration: none;
+#logo {
+    font-size: 285.714285714%; /* (40px/14px)*100 */
 }
 
 #mainave {
     font-size: 142.8571429%; /* (20px/14px)*100 */
+    float:right;
+}
+
+#welcome-msg {
+    color: #1069B6;
+    font-weight: bold;
+    &:hover {
+        color: #1069B6;
+    }
+}
+
+#welcome-msg-btn {
+    color: #1069B6;
+    font-weight: bold;
+    margin: 0 0 0 0;
+    font-size: 142.8571429%; /* (20px/14px)*100 */
+    &:hover {
+        color: #1069B6;
+    }
+}
+
+li {
+    font-weight: bold;
+}
+
+.navbar.navbar-default {
+    border: none;
 }
 
 .alert, .notice {
@@ -39,14 +66,48 @@ footer {
     float: right;
 }
 
+/* Preferences page */
+
+i {
+    font-size: 80%;
+}
+
+.movil-input {
+    display: none;
+}
+
+::-webkit-input-placeholder { /* Chrome, Safari */
+   font-size: 80%;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-size: 80%;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-size: 80%;
+}
+
+:-ms-input-placeholder {  /* Internet Explorer */
+   font-size: 80%;
+}
+
 /* < 768px */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
     /* Layout */
 
     footer {
         float: none;
+    }
+
+    #mainave {
+        float: none;
+    }
+
+    #welcome-msg {
+        display: none;
     }
 
     /* Sign in page */
@@ -59,6 +120,20 @@ footer {
     #loginform {
         width: 100%;
         float: none;
+    }
+
+    /* Preferences page */
+
+    i {
+        display: none;
+    }
+
+    .desktop-input {
+        display: none;
+    }
+
+    .movil-input {
+        display: inline-block;
     }
 
 }

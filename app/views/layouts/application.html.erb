@@ -26,17 +26,32 @@
 
 <body>
       <div class="container">
-        <div class="header">
-          <ul class="nav nav-pills pull-right" id="mainave">
+        <nav class="navbar navbar-default" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
             <% if user_signed_in? %>
-              <li>Logged in as <strong><%= current_user.email %></strong></li>
-              <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
-              <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              <button id="welcome-msg-btn" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span>Welcome</span>
+              </button>
             <% end %>
-          </ul>
-          <a id="logo" href="/"><h1 class="text-muted">Simula</h1></a>
-        </div>
+            <a class="navbar-brand" id="logo" href="/">Simula</a>
+          </div>
 
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <% if user_signed_in? %>
+              <ul class="nav navbar-nav" id="mainave">
+                <li><a id="welcome-msg">Welcome</a></li>
+                <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              </ul>
+            <% end %>
+          </div><!-- /.navbar-collapse -->
+        </nav>
+      </div>
+
+      <div class="container">
         <% if notice %>
           <p class="alert alert-success"><%= notice %></p>
         <% end %>
