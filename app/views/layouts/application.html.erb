@@ -32,7 +32,7 @@
             <% if user_signed_in? %>
               <button id="welcome-msg-btn" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <span><%= current_user.first_name %></span>
+                <span><%= current_user.first_name.empty? ? "Welcome" : current_user.first_name %></span>
               </button>
             <% end %>
             <a class="navbar-brand" id="logo" href="/">Simula</a>
