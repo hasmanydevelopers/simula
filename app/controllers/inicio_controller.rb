@@ -1,2 +1,0 @@
-class InicioController < ApplicationController
-end

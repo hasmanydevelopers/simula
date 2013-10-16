@@ -1,3 +1,3 @@
 class Users::Supervisor < User
-  # Methods, variables and constants
+  has_many :therapy_sessions
 end
