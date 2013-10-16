@@ -84,12 +84,10 @@ footer {
 
 #sessions-as-therapist, #sessions-as-patient  {
     width: 49%;
+    font-weight: bold;
     text-align: center;
     padding: 15px 15px 15px 15px;
-
-    h3 {
-        font-size: 100%;
-    }
+    margin-bottom: 20px;
 }
 
 #sessions-as-therapist {
@@ -98,6 +96,25 @@ footer {
 
 #sessions-as-patient {
     float: right;
+}
+
+#name-label, #times-label {
+    padding: 0;
+    p {
+        font-size: 146%;
+        font-weight: bold;
+        text-transform:uppercase;
+        padding: 0;
+        margin-bottom: 0;
+    }
+}
+
+#name-label {
+    width: 49%;
+}
+
+#times-label {
+    width: 49%;
 }
 
 /* < 768px */
