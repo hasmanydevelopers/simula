@@ -1,10 +1,12 @@
 <div class="jumbotron" id="sessions-as-therapist">
     <h1><%= @sessions_as_therapist %></h1>
     <p>sessions as THERAPIST</p>
+    <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
 </div>
 <div class="jumbotron" id="sessions-as-patient">
     <h1><%= @sessions_as_patient %></h1>
     <p>sessions as PATIENT</p>
+    <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
 </div>
 <table class="table">
     <thead>
