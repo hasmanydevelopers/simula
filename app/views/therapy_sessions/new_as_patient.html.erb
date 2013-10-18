@@ -1,2 +1,20 @@
-<h1>TherapySessions#new_as_patient</h1>
-<p>Find me in app/views/therapy_sessions/new_as_patient.html.erb</p>
+<div class="jumbotron">
+    <h2>New session as patient</h2>
+
+    <%= form_for @therapy_session, :url => therapy_sessions_as_patient_path do |f| %>
+      <%= f.hidden_field :patient_id, :value => current_user.id %>
+
+      <div><%= f.label :event_date %><br />
+      <%= f.date_field :event_date %></div>
+
+      <div><%= f.label :therapist_id %><br />
+      <%= f.collection_select :therapist_id, @posible_therapists, :id, :complete_name, :prompt => true %></div>
+
+      <div><%= f.label :supervisor_id %><br />
+      <%= f.collection_select :supervisor_id, @posible_supervisors, :id, :complete_name, :prompt => true %></div>
+
+      <div class="margsupbtn"><%= f.submit "Register therapy session", :class => 'btn btn-lg btn-success' %></div>
+    <% end %>
+
+    <%= link_to "Back", "/" %>
+</div>

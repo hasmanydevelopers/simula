@@ -1,7 +1,9 @@
 PsicoApp::Application.routes.draw do
 
-  get "therapy_sessions/new_as_therapist", to: 'therapy_sessions#new_as_therapist', as: 'new_therapy_session_as_therapist'
-  get "therapy_sessions/new_as_patient", to: 'therapy_sessions#new_as_patient', as: 'new_therapy_session_as_patient'
+  get "/therapy_sessions/new_as_therapist", to: 'therapy_sessions#new_as_therapist', as: 'new_therapy_session_as_therapist'
+  get "/therapy_sessions/new_as_patient", to: 'therapy_sessions#new_as_patient', as: 'new_therapy_session_as_patient'
+  post "/therapy_sessions_as_therapist", to: 'therapy_sessions#create_as_therapist', as: 'therapy_sessions_as_therapist'
+  post "/therapy_sessions_as_patient", to: 'therapy_sessions#create_as_patient', as: 'therapy_sessions_as_patient'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   match '/users/sign_up', to: 'errors#routing', via: 'get'
