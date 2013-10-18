@@ -9,9 +9,9 @@ class HomeController < ApplicationController
             supervisor_complete_name = "#{supervisor.first_name} #{supervisor.last_name}"
             supervisor_vs_times[supervisor_complete_name] = supervisor_vs_times[supervisor_complete_name] + 1
         end
-        supervisors = Users::Supervisor.select("first_name, last_name")
+        supervisors = Users::Supervisor.all
         supervisors.each do |supervisor|
-            supervisor_complete_name = "#{supervisor.first_name} #{supervisor.last_name}"
+            supervisor_complete_name = supervisor.complete_name
             supervisor_vs_times[supervisor_complete_name] = supervisor_vs_times[supervisor_complete_name]
         end
         @supervisor_vs_times = supervisor_vs_times

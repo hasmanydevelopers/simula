@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <h2>New session as therapist</h2>
 
-    <%= form_for @therapy_session, :url => therapy_sessions_as_therapist_path do |f| %>
+    <%= form_for @therapy_session, :url => create_therapy_session_as_therapist_path do |f| %>
       <%= f.hidden_field :therapist_id, :value => current_user.id %>
 
       <div><%= f.label :event_date %><br />
