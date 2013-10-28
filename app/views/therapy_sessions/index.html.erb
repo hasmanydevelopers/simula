@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table">
+      <thead>
+        <tr>
+          <th id="rol-label"><p><%= @name_label %></p></th>
+          <th></th>
+          <th id="supervisor-label"><p>Supervisor</p></th>
+          <th></th>
+          <th id="date-label"><p>Event date</p></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sessions.each do |s| %>
+        <tr>
+          <% if @name_level == "Patient" %>
+          <td><%= s.patient.complete_name %></td>
+          <% else %>
+          <td><%= s.therapist.complete_name %></td>
+          <% end %>
+          <td></td>
+          <td><%= s.supervisor.complete_name %></td>
+          <td></td>
+          <td><%= s.event_date %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>

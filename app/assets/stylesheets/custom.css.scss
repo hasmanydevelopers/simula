@@ -136,6 +136,31 @@ label {
     font-weight: bold;
 }
 
+/* Sessions detail page */
+
+#rol-label, #supervisor-label, #date-label {
+    padding: 0;
+    p {
+        font-size: 146%;
+        font-weight: bold;
+        text-transform:uppercase;
+        padding: 0;
+        margin-bottom: 0;
+    }
+}
+
+#rol-label {
+    width: 39%;
+}
+
+#supervisor-label {
+    width: 39%;
+}
+
+#date-label {
+    width: 21%;
+}
+
 /* < 768px */
 
 @media screen and (max-width: 767px) {

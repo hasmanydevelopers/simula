@@ -1,13 +1,13 @@
 <div class="jumbotron" id="sessions-as-therapist">
     <p>Sessions as THERAPIST</p>
-    <%= link_to @sessions_as_therapist, therapy_sessions_as_therapist_path, :id => "number-sessions" %><br>
-    <p><%= link_to "(2 to be confirmed)", "#", :id => "number-sessions-to-be-confirmed" %></p>
+    <%= link_to @sessions_as_therapist_confirmed, "/therapy_sessions_as_therapist/confirmed", :id => "number-sessions" %><br>
+    <p><%= link_to "(#{@sessions_as_therapist_unconfirmed} to be confirmed)", "/therapy_sessions_as_therapist/unconfirmed", :id => "number-sessions-to-be-confirmed" %></p>
     <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
 </div>
 <div class="jumbotron" id="sessions-as-patient">
     <p>Sessions as PATIENT</p>
-    <%= link_to @sessions_as_patient, therapy_sessions_as_patient_path, :id => "number-sessions" %>
-    <p><%= link_to "(2 to be confirmed)", "#", :id => "number-sessions-to-be-confirmed" %></p>
+    <%= link_to @sessions_as_patient_confirmed, "/therapy_sessions_as_patient/confirmed", :id => "number-sessions" %>
+    <p><%= link_to "(#{@sessions_as_patient_unconfirmed} to be confirmed)", "/therapy_sessions_as_patient/unconfirmed", :id => "number-sessions-to-be-confirmed" %></p>
     <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
 </div>
 <table class="table">

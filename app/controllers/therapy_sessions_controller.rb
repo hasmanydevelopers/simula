@@ -55,6 +55,20 @@ class TherapySessionsController < ApplicationController
     end
   end
 
+  def index_as_therapist
+      confirmed = params[:confirmed] == "confirmed" ? true : false
+      @sessions = current_user.sessions_as_therapist.where(confirmed: confirmed)
+      @name_label = "Patient"
+      render "index"
+  end
+
+  def index_as_patient
+      confirmed = params[:confirmed] == "confirmed" ? true : false
+      @sessions = current_user.sessions_as_patient.where(confirmed: confirmed)
+      @name_label = "Therapist"
+      render "index"
+  end
+
   private
 
   def therapy_session_params
