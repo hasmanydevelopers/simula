@@ -2,14 +2,14 @@ class TherapySessionsController < ApplicationController
   def new_as_therapist
     @therapy_session = TherapySession.new
 
-    @posible_patients =  Users::Student.where.not(id: current_user.id)
+    @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
     @posible_supervisors =  Users::Supervisor.all
   end
 
   def new_as_patient
     @therapy_session = TherapySession.new
 
-    @posible_therapists =  Users::Student.where.not(id: current_user.id)
+    @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
     @posible_supervisors =  Users::Supervisor.all
   end
 
@@ -28,7 +28,7 @@ class TherapySessionsController < ApplicationController
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_patients =  Users::Student.where.not(id: current_user.id)
+      @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
       @posible_supervisors =  Users::Supervisor.all
       render "new_as_therapist"
     end
@@ -49,7 +49,7 @@ class TherapySessionsController < ApplicationController
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_therapists =  Users::Student.where.not(id: current_user.id)
+      @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
       @posible_supervisors =  Users::Supervisor.all
       render "new_as_patient"
     end
