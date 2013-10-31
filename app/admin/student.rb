@@ -1,28 +1,17 @@
-ActiveAdmin.register Users::Student do
-  index do
-    column :email
-    column :current_sign_in_at
-    column :last_sign_in_at
-    column :sign_in_count
-    default_actions
-  end
+ ActiveAdmin.register_page "Change of group" do
 
-  filter :email
-
-  form do |f|
-    f.inputs "User Details" do
-      f.input :email
-      f.input :first_name
-      f.input :last_name
-      f.input :password
-      f.input :password_confirmation
+    sidebar :help do
+      ul do
+        li "First Line of Help"
+      end
     end
-    f.actions
-  end
 
-  controller do
-    def permitted_params
-      params.permit users_student: [:email, :first_name, :last_name, :password, :password_confirmation]
+    content do
+      table_for Users::Student.all do |student|
+        column :email
+        column :current_sign_in_at
+        column :last_sign_in_at
+        column :sign_in_count
+      end
     end
   end
-end

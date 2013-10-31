@@ -1,0 +1,21 @@
+<div id="main_content_wrapper">
+    <div id="main_content">
+        <%= form_tag(change_group_post_admin_group_users_student_path, method: "post") do %>
+            <fieldset class="inputs">
+                <legend><span>Group situation</span></legend><ol>
+                <li>
+                    <label class="label">Current Group</label>
+                    <%= @group.description %>
+                </li>
+                <li>
+                    <label class="label">New Group</label>
+                    <%= collection_select nil, :new_group_id, @posible_groups, :id, :description, :prompt => true %>
+                </li>
+            </fieldset>
+            <fieldset class="actions"><ol>
+                <li class="action input_action" ><%= submit_tag "Change group" %></li>
+                <li class="cancel" ><%= link_to("Cancel", admin_group_users_students_path(@group.id)) %></li></ol>
+            </fieldset>
+        <% end %>
+    </div>
+</div>

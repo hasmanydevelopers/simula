@@ -7,7 +7,9 @@ PsicoApp::Application.routes.draw do
   get "/therapy_sessions_as_therapist/:confirmed", to: 'therapy_sessions#index_as_therapist'
   get "/therapy_sessions_as_patient/:confirmed", to: 'therapy_sessions#index_as_patient'
   devise_for :admin_users, ActiveAdmin::Devise.config
+  #get '/stories', to: redirect('/posts')
   ActiveAdmin.routes(self)
+
   match '/users/sign_up', to: 'errors#routing', via: 'get'
   #get '/users/sign_up', :to => 'errors#routing'
 
