@@ -26,8 +26,13 @@ footer {
     font-weight: bold;
     margin: 0 0 0 0;
     font-size: 142.8571429%; /* (20px/14px)*100 */
+    background-color: #dddddd;
+    outline-color: #1069B6;
     &:hover {
         color: #1069B6;
+    }
+    &.collapsed {
+        outline-color: #1069B6;
     }
 }
 
@@ -86,13 +91,63 @@ label {
 
 /* Student's home page */
 
-#number-sessions-to-be-confirmed {
+a.confirmed, a.pending, a.canceled {
     text-decoration: none;
 }
 
-#number-sessions {
+.confirmed {
+    color: #006600;
+    &:hover {
+        color: #006600;
+    }
+    &#sessions-count-btn {
+        background-color: #dff0d8;
+        outline-color: #dff0d8;
+        &.navbar-toggle {
+            outline-color: #006600;
+            &.collapsed {
+                outline-color: #006600;
+            }
+        }
+    }
+}
+
+.pending {
+    color: #FFCC00;
+    &:hover {
+        color: #FFCC00;
+    }
+    &#sessions-count-btn {
+        background-color: #fcf8e3;
+        outline-color: #fcf8e3;
+        &.navbar-toggle {
+            outline-color: #FFCC00;
+            &.collapsed {
+                outline-color: #FFCC00;
+            }
+        }
+    }
+}
+
+.canceled {
+    color: #CC0000;
+    &:hover {
+        color: #CC0000;
+    }
+    &#sessions-count-btn {
+        background-color: #f2dede;
+        outline-color: #f2dede;
+        &.navbar-toggle {
+            outline-color: #CC0000;
+            &.collapsed {
+                outline-color: #CC0000;
+            }
+        }
+    }
+}
+
+#number-sessions-confirmed {
     font-size: 500%;
-    text-decoration: none;
     line-height: 100%;
 }
 
@@ -131,34 +186,56 @@ label {
     width: 49%;
 }
 
+#name-value {
+    text-align:left;
+    font-size: 120%;
+}
+
+.success.confirmed, .warning.pending, .danger.canceled {
+    vertical-align: middle;
+    text-align:center;
+    font-weight: bold;
+    font-size: 146%;
+}
+
 #button-to-add {
     float: right;
     font-weight: bold;
 }
 
-/* Sessions detail page */
+/* Sessions index */
 
-#rol-label, #supervisor-label, #date-label {
-    padding: 0;
-    p {
-        font-size: 146%;
-        font-weight: bold;
-        text-transform:uppercase;
-        padding: 0;
-        margin-bottom: 0;
+.sessions-by-date {
+    padding: 0 0 0 38px;
+}
+
+#date-detail {
+    color: #1069B6;
+    font-weight: bold;
+    &:hover {
+        color: #1069B6;
     }
 }
 
-#rol-label {
-    width: 39%;
+#people-column, {
+    width: 100%;
+    font-size: 120%;
+    li {
+        padding: 5px;
+    }
 }
 
-#supervisor-label {
-    width: 39%;
+#edit-btn {
+    padding: 7.5px 15px 7.5px 0;
 }
 
-#date-label {
-    width: 21%;
+#sessions-count-btn {
+    font-weight: bold;
+    margin: 0 0 0 0;
+}
+
+.breadcrumb {
+    text-align: center;
 }
 
 /* < 768px */
@@ -190,5 +267,4 @@ label {
         width: 100%;
         float: none;
     }
-
 }

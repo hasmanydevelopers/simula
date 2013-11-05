@@ -1,19 +1,22 @@
 class HomeController < ApplicationController
     def index
-        @sessions_as_therapist_confirmed = current_user.sessions_as_therapist.where(confirmed: true).count
-        @sessions_as_patient_confirmed = current_user.sessions_as_patient.where(confirmed: true).count
-        @sessions_as_therapist_unconfirmed = current_user.sessions_as_therapist.where(confirmed: false).count
-        @sessions_as_patient_unconfirmed = current_user.sessions_as_patient.where(confirmed: false).count
-        total_sessions = current_user.therapy_sessions
-        supervisor_vs_times = Hash.new(0)
-        total_sessions.each do |session|
-            supervisor = Users::Supervisor.find(session.supervisor_id)
-            supervisor_vs_times[supervisor.complete_name] = supervisor_vs_times[supervisor.complete_name] + 1
-        end
-        supervisors = Users::Supervisor.all
-        supervisors.each do |supervisor|
-            supervisor_vs_times[supervisor.complete_name] = supervisor_vs_times[supervisor.complete_name]
-        end
+        @sessions_as_therapist_confirmed = current_user.sessions_as_therapist.where(state: :confirmed).count
+        @sessions_as_patient_confirmed = current_user.sessions_as_patient.where(state: :confirmed).count
+        @sessions_as_therapist_pending = current_user.sessions_as_therapist.where(state: :pending).count
+        @sessions_as_patient_pending = current_user.sessions_as_patient.where(state: :pending).count
+        @sessions_as_therapist_canceled = current_user.sessions_as_therapist.where(state: :canceled).count
+        @sessions_as_patient_canceled = current_user.sessions_as_patient.where(state: :canceled).count
         @supervisor_vs_times = supervisor_vs_times
+    end
+
+    def supervisor_vs_times
+        svt = {}
+        Users::Supervisor.all.each do |supervisor|
+            sessions_confirmed = current_user.sessions_as_therapist.where(state: :confirmed).where(supervisor_id: supervisor.id).count + current_user.sessions_as_patient.where(state: :confirmed).where(supervisor_id: supervisor.id).count
+            sessions_pending = current_user.sessions_as_therapist.where(state: :pending).where(supervisor_id: supervisor.id).count + current_user.sessions_as_patient.where(state: :pending).where(supervisor_id: supervisor.id).count
+            sessions_canceled = current_user.sessions_as_therapist.where(state: :canceled).where(supervisor_id: supervisor.id).count + current_user.sessions_as_patient.where(state: :canceled).where(supervisor_id: supervisor.id).count
+            svt[supervisor] = [sessions_confirmed, sessions_pending, sessions_canceled]
+        end
+        return svt
     end
 end

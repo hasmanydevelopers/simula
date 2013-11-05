@@ -4,8 +4,10 @@ PsicoApp::Application.routes.draw do
   get "/therapy_sessions/new_as_patient", to: 'therapy_sessions#new_as_patient', as: 'new_therapy_session_as_patient'
   post "/create_therapy_session_as_therapist", to: 'therapy_sessions#create_as_therapist', as: 'create_therapy_session_as_therapist'
   post "/create_therapy_session_as_patient", to: 'therapy_sessions#create_as_patient', as: 'create_therapy_session_as_patient'
-  get "/therapy_sessions_as_therapist/:confirmed", to: 'therapy_sessions#index_as_therapist'
-  get "/therapy_sessions_as_patient/:confirmed", to: 'therapy_sessions#index_as_patient'
+  patch "/therapy_sessions/:id", to: 'therapy_sessions#update', as: 'update_therapy_session'
+
+  get "/therapy_sessions", to: 'therapy_sessions#index', as: 'therapy_sessions'
+  get "/therapy_sessions/:id/edit", to: 'therapy_sessions#edit', as: 'edit_therapy_session'
   devise_for :admin_users, ActiveAdmin::Devise.config
   #get '/stories', to: redirect('/posts')
   ActiveAdmin.routes(self)

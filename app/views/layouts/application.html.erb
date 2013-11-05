@@ -42,7 +42,7 @@
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <% if user_signed_in? %>
               <ul class="nav navbar-nav" id="mainave">
-                <li><a id="welcome-msg"><%= current_user.first_name %></a></li>
+                <li><a id="welcome-msg"><%= current_user.first_name.empty? ? "Welcome" : current_user.first_name %></a></li>
                 <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               </ul>

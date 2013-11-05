@@ -1,30 +1,40 @@
 <div class="jumbotron" id="sessions-as-therapist">
     <p>Sessions as THERAPIST</p>
-    <%= link_to @sessions_as_therapist_confirmed, "/therapy_sessions_as_therapist/confirmed", :id => "number-sessions" %><br>
-    <p><%= link_to "(#{@sessions_as_therapist_unconfirmed} to be confirmed)", "/therapy_sessions_as_therapist/unconfirmed", :id => "number-sessions-to-be-confirmed" %></p>
-    <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
+    <%= link_to @sessions_as_therapist_confirmed, therapy_sessions_path(rol: "therapist", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %><br>
+    <p><%= link_to "#{@sessions_as_therapist_pending} pending", therapy_sessions_path(rol: "therapist", state: :pending), :class => "pending" %></p>
+    <p><%= link_to "#{@sessions_as_therapist_canceled} canceled", therapy_sessions_path(rol: "therapist", state: :canceled), :class => "canceled" %></p>
+    <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "btn btn-default btn-lg", :id => "button-to-add" %>
 </div>
 <div class="jumbotron" id="sessions-as-patient">
     <p>Sessions as PATIENT</p>
-    <%= link_to @sessions_as_patient_confirmed, "/therapy_sessions_as_patient/confirmed", :id => "number-sessions" %>
-    <p><%= link_to "(#{@sessions_as_patient_unconfirmed} to be confirmed)", "/therapy_sessions_as_patient/unconfirmed", :id => "number-sessions-to-be-confirmed" %></p>
-    <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "btn btn-default", :id => "button-to-add" %>
+    <%= link_to @sessions_as_patient_confirmed, therapy_sessions_path(rol: "patient", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %>
+    <p><%= link_to "#{@sessions_as_patient_pending} pending", therapy_sessions_path(rol: "patient", state: :pending), :class => "pending" %></p>
+    <p><%= link_to "#{@sessions_as_patient_canceled} canceled", therapy_sessions_path(rol: "patient", state: :canceled), :class => "canceled" %></p>
+    <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "btn btn-default btn-lg", :id => "button-to-add" %>
 </div>
 <table class="table">
     <thead>
       <tr>
         <th id="name-label"><p>Supervisor</p></th>
         <th></th>
-        <th id="times-label"><p># Times</p></th>
+        <th id="times-label" colspan="3"><p># Sessions</p></th>
       </tr>
     </thead>
     <tbody>
       <% @supervisor_vs_times.each do |supervisor, times| %>
-      <tr>
-        <td><%= supervisor %></td>
-        <td></td>
-        <td><%= times %></td>
-      </tr>
+        <tr>
+          <td id="name-value" ><%= supervisor.complete_name %></td>
+          <td></td>
+          <% times.each_with_index do |val, index| %>
+            <% if  index == 0 %>
+              <td class="success confirmed" ><%= link_to val, therapy_sessions_path(rol: "none", state: :confirmed, supervisor_id: supervisor.id), :class => "confirmed" %></td>
+            <% elsif index == 1 %>
+              <td class="warning pending" ><%= link_to val, therapy_sessions_path(rol: "none", state: :pending, supervisor_id: supervisor.id), :class => "pending" %></td>
+            <% elsif index == 2 %>
+              <td class="danger canceled" ><%= link_to val, therapy_sessions_path(rol: "none", state: :canceled, supervisor_id: supervisor.id), :class => "canceled" %></td>
+            <% end %>
+          <% end %>
+        </tr>
       <% end %>
     </tbody>
 </table>
