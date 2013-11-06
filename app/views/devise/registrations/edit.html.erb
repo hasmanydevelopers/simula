@@ -26,8 +26,10 @@
       <div><%= f.label :current_password %><br />
       <%= f.password_field :current_password, :placeholder =>  "required to confirm your changes" %></div>
 
-      <div class="margsupbtn"><%= f.submit "Update", :class => 'btn btn-lg btn-success' %></div>
+      <div class="marg-sup-btn"><%= f.submit "Update", :class => 'btn btn-lg btn-success' %></div>
     <% end %>
 
-    <%= link_to "Back", "/" %>
+    <div class="marg-sup-btn">
+        <%= link_to "Back", "/" %>
+    </div>
 </div>

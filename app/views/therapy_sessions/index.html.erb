@@ -31,9 +31,11 @@
                     </li>
                   <% end %>
                 </td>
-                <td id="edit-btn">
-                    <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-pencil"), edit_therapy_session_path(id: s.id), method: :get, :class => "btn btn-default btn-lg" %>
-                </td>
+                <% unless @state == "confirmed" %>
+                  <td id="edit-btn">
+                      <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-pencil"), edit_therapy_session_path(s.id), method: :get, :class => "btn btn-default btn-lg" %>
+                  </td>
+                <% end %>
               </tr>
             <% end %>
           <tbody>

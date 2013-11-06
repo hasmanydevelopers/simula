@@ -46,8 +46,8 @@ footer {
 
 /* General */
 
-.margsupbtn {
-    margin: 20px 0 0 0;
+.marg-sup-btn {
+    margin-top: 20px;
 }
 
 .field_with_errors {
@@ -238,6 +238,16 @@ a.confirmed, a.pending, a.canceled {
     text-align: center;
 }
 
+/* Edit session page */
+
+#destroy-btn {
+    display: inline-block;
+    margin-left: 20px;
+    background-color: #CC3300;
+    border-color: #CC0000;
+    background-image: none;
+}
+
 /* < 768px */
 
 @media screen and (max-width: 767px) {
@@ -254,6 +264,12 @@ a.confirmed, a.pending, a.canceled {
 
     #welcome-msg {
         display: none;
+    }
+
+    /* General */
+
+    h2 {
+        text-align: center;
     }
 
     /* Sign in page */

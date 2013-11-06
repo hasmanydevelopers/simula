@@ -62,50 +62,48 @@ class TherapySessionsController < ApplicationController
   def edit
     @posible_supervisors =  Users::Supervisor.all
     @therapy_session = TherapySession.find(params[:id])
-    partners_in_group = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
     if @therapy_session.therapist_id == current_user.id
-      actual_choice = partners_in_group.find(@therapy_session.patient_id)
-      if actual_choice.nil?
-        @posible_patients = partners_in_group + Users::Student.where(id: @therapy_session.patient_id)
-      else
-        @posible_patients = partners_in_group
-      end
+      @posible_patients = partners_to_select(@therapy_session.patient_id)
       render "edit_as_therapist"
     else
-      actual_choice = partners_in_group.find(@therapy_session.therapist_id)
-      if actual_choice.nil?
-        @posible_therapists = partners_in_group + Users::Student.where(id: @therapy_session.therapist_id)
-      else
-        @posible_therapists = partners_in_group
-      end
+      @posible_therapists = partners_to_select(@therapy_session.therapist_id)
       render "edit_as_patient"
     end
   end
 
-  def update_as_therapist
-    @therapy_session = TherapySession.find_by(params[:id])
-    @therapy_session.event_date = params[:event_date]
-    @therapy_session.patient_id = params[:patient_id]
-    @therapy_session.supervisor_id = params[:supervisor_id]
-    if @therapy_session.save
+  def update
+    @therapy_session = TherapySession.find(params[:id])
+    older_patient_id = @therapy_session.patient_id
+    older_therapist_id = @therapy_session.therapist_id
+    if @therapy_session.update_attributes(therapy_session_params)
       flash[:notice] = "Your therapy session as therapist was saved successfully."
       redirect_to :root
     else
-      if @therapy_session.patient_id.nil?
-          flash[:alert] = "You have to select a patient."
-      elsif @therapy_session.supervisor_id.nil?
-        flash[:alert] = "You have to select a supervisor."
-      elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
+      if @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
         flash[:alert] = "Invalid date"
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
       @posible_supervisors =  Users::Supervisor.all
-      @title = "New session as therapist"
-      @submit_msg = "Register therapy session"
-      render "form_as_therapist"
+      if @therapy_session.therapist_id == current_user.id
+        @posible_patients = partners_to_select(older_patient_id)
+        render "edit_as_therapist"
+      else
+        @posible_therapists = partners_to_select(older_therapist_id)
+        render "edit_as_patient"
+      end
     end
+  end
+
+  def destroy
+    therapy_session = TherapySession.find(params[:id])
+    if therapy_session.therapist_id == current_user.id
+      flash[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient} and #{therapy_session.supervisor}, was destroyed successfully."
+    else
+      flash[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist} and #{therapy_session.supervisor}, was destroyed successfully."
+    end
+    therapy_session.destroy
+    redirect_to :root
   end
 
   def index
@@ -140,6 +138,16 @@ class TherapySessionsController < ApplicationController
     elsif current_user.type == "Users::Student"
       supervisor = Users::Supervisor.find(supervisor_id)
       return "You don't have #{state} sessions with #{supervisor.complete_name}."
+    end
+  end
+
+  def partners_to_select(partner_in_session_id)
+    partners_in_group = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
+    actual_choice = partners_in_group.find(partner_in_session_id)
+    if actual_choice.nil?
+      return partners_in_group + Users::Student.where(id: partner_in_session_id)
+    else
+      return partners_in_group
     end
   end
 
