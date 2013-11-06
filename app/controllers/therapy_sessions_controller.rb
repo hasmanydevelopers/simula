@@ -2,19 +2,14 @@ class TherapySessionsController < ApplicationController
 
   def new_as_therapist
     @therapy_session = TherapySession.new
-
     @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
     @posible_supervisors =  Users::Supervisor.all
-    @title = "New session as therapist"
-    @submit_msg = "Register therapy session"
   end
 
   def new_as_patient
     @therapy_session = TherapySession.new
     @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
     @posible_supervisors =  Users::Supervisor.all
-    @title = "New session as patient"
-    @submit_msg = "Register therapy session"
   end
 
   def create_as_therapist
