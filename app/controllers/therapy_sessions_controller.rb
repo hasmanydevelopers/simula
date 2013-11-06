@@ -98,9 +98,9 @@ class TherapySessionsController < ApplicationController
   def destroy
     therapy_session = TherapySession.find(params[:id])
     if therapy_session.therapist_id == current_user.id
-      flash[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient.complete_name} and #{therapy_session.supervisor.complete_name}, was destroyed successfully."
+      flash[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
     else
-      flash[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist.complete_name} and #{therapy_session.supervisor.complete_name}, was destroyed successfully."
+      flash[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
     end
     therapy_session.destroy
     redirect_to :root
