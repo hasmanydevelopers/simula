@@ -143,7 +143,7 @@ class TherapySessionsController < ApplicationController
 
   def partners_to_select(partner_in_session_id)
     partners_in_group = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-    actual_choice = partners_in_group.find(partner_in_session_id)
+    actual_choice = partners_in_group.find_by(id: partner_in_session_id)
     if actual_choice.nil?
       return partners_in_group + Users::Student.where(id: partner_in_session_id)
     else
