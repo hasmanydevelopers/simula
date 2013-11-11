@@ -32,7 +32,15 @@
             <% if user_signed_in? %>
               <button id="welcome-msg-btn" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <span><%= current_user.first_name.empty? ? "Welcome" : "#{current_user.first_name} (#{current_user.group.description})" %></span>
+                <span>
+                  <% if current_user.first_name.empty? %>
+                    Welcome
+                  <% elsif current_user.type == "Users::Student" %>
+                    <%= "#{current_user.first_name} (#{current_user.group.description})" %>
+                  <% else %>
+                    <%= current_user.first_name %>
+                  <% end %>
+                </span>
               </button>
             <% end %>
             <a class="navbar-brand" id="logo" href="/">Simula</a>
@@ -42,7 +50,17 @@
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <% if user_signed_in? %>
               <ul class="nav navbar-nav" id="mainave">
-                <li><a id="welcome-msg"><%= current_user.first_name.empty? ? "Welcome" : "#{current_user.first_name} (#{current_user.group.description})" %></a></li>
+                <li>
+                  <a id="welcome-msg">
+                    <% if current_user.first_name.empty? %>
+                      Welcome
+                    <% elsif current_user.type == "Users::Student" %>
+                      <%= "#{current_user.first_name} (#{current_user.group.description})" %>
+                    <% else %>
+                      <%= current_user.first_name %>
+                    <% end %>
+                  </a>
+                </li>
                 <li><a href="<%= edit_user_registration_path %>">Preferences</a></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               </ul>

@@ -102,6 +102,9 @@ class TherapySessionsController < ApplicationController
   end
 
   def index
+    if current_user.type == "Users::Supervisor"
+      sessions_list = index_supervisor
+    else
       if params[:rol] == "therapist"
         sessions = current_user.sessions_as_therapist.where(state: params[:state])
       elsif params[:rol] == "patient"
@@ -109,17 +112,14 @@ class TherapySessionsController < ApplicationController
       else
         sessions = TherapySession.where("therapist_id = ? or patient_id = ?", current_user.id, current_user.id).where(state: params[:state]).where(supervisor_id: params[:supervisor_id])
       end
-      dates = sessions.select(:event_date).distinct.order(event_date: :desc)
-      sessions_list = {}
-      dates.each do |d|
-        sessions_list[d.event_date] = sessions.where(event_date: d.event_date)
-      end
+      sessions_list = dates_vs_sessions(sessions)
       if sessions_list.empty?
         @sessions_index_msg = sessions_index_msg(params[:state], params[:rol], params[:supervisor_id])
       else
         @state = params[:state]
         @rol = params[:rol]
       end
+    end
       @sessions_list = sessions_list
   end
 
@@ -144,6 +144,26 @@ class TherapySessionsController < ApplicationController
     else
       return partners_in_group
     end
+  end
+
+  def dates_vs_sessions(sessions)
+    dates = sessions.select(:event_date).distinct.order(event_date: :desc)
+    sessions_list = {}
+    dates.each do |d|
+      sessions_list[d.event_date] = sessions.where(event_date: d.event_date)
+    end
+    return sessions_list
+  end
+
+  def index_supervisor
+    sessions_pending = TherapySession.where(supervisor_id: current_user.id).where(state: :pending)
+    sessions_canceled = TherapySession.where(supervisor_id: current_user.id).where(state: :canceled)
+    sessions_confirmed = TherapySession.where(supervisor_id: current_user.id).where(state: :confirmed)
+    sessions_list = {}
+    sessions_list[:pending] = dates_vs_sessions(sessions_pending)
+    sessions_list[:canceled] = dates_vs_sessions(sessions_canceled)
+    sessions_list[:confirmed] = dates_vs_sessions(sessions_confirmed)
+    return sessions_list
   end
 
   def therapy_session_params

@@ -209,12 +209,16 @@ a.confirmed, a.pending, a.canceled {
     padding: 0 0 0 38px;
 }
 
-#date-detail {
+#date-detail, #state-detail, #sessions-index-msg  {
     color: #1069B6;
     font-weight: bold;
     &:hover {
         color: #1069B6;
     }
+}
+
+#state-detail  {
+    text-transform: capitalize;
 }
 
 #people-column, {
