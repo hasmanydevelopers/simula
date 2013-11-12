@@ -13,13 +13,10 @@ class TherapySession < ActiveRecord::Base
         state :canceled
 
         event :confirm do
-          transition :pending => :confirmed
+          transition :canceled => :confirmed
         end
         event :cancel do
-          transition :pending => :canceled
-        end
-        event :return_to_pending do
-          transition :canceled => :pending
+          transition :confirmed => :canceled
         end
     end
 

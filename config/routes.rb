@@ -8,6 +8,7 @@ PsicoApp::Application.routes.draw do
   patch "/therapy_sessions/:id", to: 'therapy_sessions#update', as: 'update_therapy_session'
   get "/therapy_sessions", to: 'therapy_sessions#index', as: 'therapy_sessions'
   delete "/therapy_sessions/:id", to: 'therapy_sessions#destroy', as: 'destroy_therapy_session'
+  get "/therapy_sessions/:id/change_state", to: 'therapy_sessions#change_state', as: 'change_therapy_session_state'
   devise_for :admin_users, ActiveAdmin::Devise.config
   #get '/stories', to: redirect('/posts')
   ActiveAdmin.routes(self)

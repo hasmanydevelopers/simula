@@ -104,6 +104,8 @@ class TherapySessionsController < ApplicationController
   def index
     if current_user.type == "Users::Supervisor"
       sessions_list = index_supervisor
+      @sessions_list = sessions_list
+      render "supervisor_index"
     else
       if params[:rol] == "therapist"
         sessions = current_user.sessions_as_therapist.where(state: params[:state])
@@ -119,8 +121,22 @@ class TherapySessionsController < ApplicationController
         @state = params[:state]
         @rol = params[:rol]
       end
-    end
       @sessions_list = sessions_list
+      render "student_index"
+    end
+  end
+
+  def change_state
+    therapy_session = TherapySession.find(params[:id])
+    if therapy_session.state == "confirmed"
+      therapy_session.cancel
+    elsif therapy_session.state == "canceled"
+      therapy_session.confirm
+    else
+      therapy_session.state = params[:new_state]
+    end
+    therapy_session.save
+    redirect_to therapy_sessions_path
   end
 
   private

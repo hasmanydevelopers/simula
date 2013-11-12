@@ -217,8 +217,8 @@ a.confirmed, a.pending, a.canceled {
     }
 }
 
-#state-detail  {
-    text-transform: capitalize;
+#state-detail:first-letter  {
+    text-transform: uppercase;
 }
 
 #people-column, {
@@ -233,6 +233,10 @@ a.confirmed, a.pending, a.canceled {
     padding: 7.5px 15px 7.5px 0;
 }
 
+.btn-group {
+    width: 131px;
+}
+
 #sessions-count-btn {
     font-weight: bold;
     margin: 0 0 0 0;
@@ -240,6 +244,28 @@ a.confirmed, a.pending, a.canceled {
 
 .breadcrumb {
     text-align: center;
+}
+
+.no-active.confirm-btn, .no-active.cancel-btn {
+    width: 52px;
+}
+
+.active.confirm-btn {
+    background-color: #dff0d8;
+    border-color: #cccccc;
+    width: 80px;
+    cursor: default;
+}
+
+.active.cancel-btn {
+    background-color: #f2dede;
+    border-color: #cccccc;
+    width: 80px;
+    cursor: default;
+}
+
+.confirm-btn, .cancel-btn {
+    width: 65.75px;
 }
 
 /* Edit session page */
