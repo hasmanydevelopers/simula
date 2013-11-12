@@ -176,9 +176,9 @@ class TherapySessionsController < ApplicationController
     sessions_canceled = TherapySession.where(supervisor_id: current_user.id).where(state: :canceled)
     sessions_confirmed = TherapySession.where(supervisor_id: current_user.id).where(state: :confirmed)
     sessions_list = {}
-    sessions_list[:pending] = dates_vs_sessions(sessions_pending)
-    sessions_list[:canceled] = dates_vs_sessions(sessions_canceled)
-    sessions_list[:confirmed] = dates_vs_sessions(sessions_confirmed)
+    sessions_list[:pending] = [sessions_pending.count, dates_vs_sessions(sessions_pending)]
+    sessions_list[:canceled] = [sessions_canceled.count, dates_vs_sessions(sessions_canceled)]
+    sessions_list[:confirmed] = [sessions_confirmed.count, dates_vs_sessions(sessions_confirmed)]
     return sessions_list
   end
 
