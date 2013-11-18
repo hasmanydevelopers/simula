@@ -39,10 +39,10 @@ ActiveAdmin.register Users::Student do
     if student.save
       group = Group.find(params[:group_id])
       new_group = Group.find(params[:new_group_id])
-      flash[:notice] = "Student was successfully changed from group #{group.description} to group #{new_group.description}."
+      flash.now[:notice] = "Student was successfully changed from group #{group.description} to group #{new_group.description}."
       redirect_to admin_group_users_student_path(group_id: params[:new_group_id], id: params[:id])
     else
-      flash[:alert] = "You have to select a new group for #{student.complete_name}, if you want to change this student from the current one. Otherwise, press the 'Cancel' button."
+      flash.now[:alert] = "You have to select a new group for #{student.complete_name}, if you want to change this student from the current one. Otherwise, press the 'Cancel' button."
       redirect_to change_group_admin_group_users_student_path(group_id: params[:group_id], id: params[:id])
     end
   end

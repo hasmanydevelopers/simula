@@ -15,17 +15,17 @@ class TherapySessionsController < ApplicationController
   def create_as_therapist
     @therapy_session = TherapySession.new(therapy_session_params)
     if @therapy_session.save
-      flash[:notice] = "Your therapy session as therapist was saved successfully."
+      flash.now[:notice] = "Your therapy session as therapist was saved successfully."
       redirect_to :root
     else
       if @therapy_session.patient_id.nil?
-          flash[:alert] = "You have to select a patient."
+          flash.now[:alert] = "You have to select a patient."
       elsif @therapy_session.supervisor_id.nil?
-        flash[:alert] = "You have to select a supervisor."
+        flash.now[:alert] = "You have to select a supervisor."
       elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash[:alert] = "Invalid date"
+        flash.now[:alert] = "Invalid date"
       else
-        flash[:alert] = "Invalid form"
+        flash.now[:alert] = "Invalid form"
       end
       @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
       @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
@@ -36,17 +36,17 @@ class TherapySessionsController < ApplicationController
   def create_as_patient
     @therapy_session = TherapySession.new(therapy_session_params)
     if @therapy_session.save
-      flash[:notice] = "Your therapy session as patient was registered successfully."
+      flash.now[:notice] = "Your therapy session as patient was registered successfully."
       redirect_to :root
     else
       if @therapy_session.therapist_id.nil?
-        flash[:alert] = "You have to select a therapist."
+        flash.now[:alert] = "You have to select a therapist."
       elsif @therapy_session.supervisor_id.nil?
-        flash[:alert] = "You have to select a supervisor."
+        flash.now[:alert] = "You have to select a supervisor."
       elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash[:alert] = "Invalid date"
+        flash.now[:alert] = "Invalid date"
       else
-        flash[:alert] = "Invalid form"
+        flash.now[:alert] = "Invalid form"
       end
       @posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
       @posible_supervisors = Users::Supervisor.order(first_name: :asc)
