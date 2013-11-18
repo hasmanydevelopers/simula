@@ -71,13 +71,13 @@ class TherapySessionsController < ApplicationController
     older_patient_id = @therapy_session.patient_id
     older_therapist_id = @therapy_session.therapist_id
     if @therapy_session.update_attributes(therapy_session_params)
-      flash[:notice] = "Your therapy session as therapist was saved successfully."
+      flash.now[:notice] = "Your therapy session as therapist was saved successfully."
       redirect_to :root
     else
       if @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash[:alert] = "Invalid date"
+        flash.now[:alert] = "Invalid date"
       else
-        flash[:alert] = "Invalid form"
+        flash.now[:alert] = "Invalid form"
       end
       @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
       if @therapy_session.therapist_id == current_user.id
@@ -93,9 +93,9 @@ class TherapySessionsController < ApplicationController
   def destroy
     therapy_session = TherapySession.find(params[:id])
     if therapy_session.therapist_id == current_user.id
-      flash[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
+      flash.now[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
     else
-      flash[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
+      flash.now[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
     end
     therapy_session.destroy
     redirect_to :root
