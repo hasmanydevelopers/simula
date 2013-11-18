@@ -70,10 +70,14 @@
         <% if notice %>
           <p class="alert alert-success"><%= notice %></p>
         <% end %>
+        <% if flash[:info] %>
+          <% flash[:info].each do |i|%>
+            <p class="alert alert-info"><%= i %></p>
+          <% end %>
+        <% end %>
         <% if alert %>
           <p class="alert alert-danger"><%= alert %></p>
         <% end %>
-
         <%= yield %>
       </div>
       <div class="container">

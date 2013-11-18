@@ -177,6 +177,6 @@ class TherapySessionsController < ApplicationController
   end
 
   def therapy_session_params
-    params.require(:therapy_session).permit(:therapist_id, :patient_id, :supervisor_id, :event_date, :state, :state_event)
+    params.require(:therapy_session).permit(:therapist_id, :patient_id, :creator_id, :supervisor_id, :event_date, :state, :state_event)
   end
 end

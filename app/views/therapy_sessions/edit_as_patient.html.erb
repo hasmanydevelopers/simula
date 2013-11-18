@@ -3,6 +3,7 @@
 
     <%= form_for @therapy_session, :url => update_therapy_session_path do |f| %>
       <%= f.hidden_field :patient_id, :value => current_user.id %>
+      <%= f.hidden_field :creator_id, :value => current_user.id %>
       <%= f.hidden_field :state, :value => :pending %>
 
       <div><%= f.label :event_date %><br />

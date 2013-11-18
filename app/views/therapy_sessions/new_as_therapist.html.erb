@@ -4,6 +4,7 @@
 
     <%= form_for @therapy_session, :url => create_therapy_session_as_therapist_path do |f| %>
       <%= f.hidden_field :therapist_id, :value => current_user.id %>
+      <%= f.hidden_field :creator_id, :value => current_user.id %>
 
       <div><%= f.label :event_date %><br />
       <%= f.date_field :event_date %></div>
