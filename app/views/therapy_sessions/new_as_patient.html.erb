@@ -11,7 +11,7 @@
       <%= f.collection_select :therapist_id, @posible_therapists, :id, :complete_name, :prompt => true %></div>
 
       <div><%= f.label :supervisor_id %><br />
-      <%= f.collection_select :supervisor_id, @posible_supervisors, :id, :complete_name, :prompt => true %></div>
+      <%= f.collection_select :supervisor_id, @posible_supervisors.order('first_name ASC'), :id, :complete_name, :prompt => true %></div>
 
       <div class="marg-sup-btn"><%= f.submit "Register", :class => 'btn btn-lg btn-success' %></div>
     <% end %>

@@ -2,14 +2,14 @@
     <p>Sessions as THERAPIST</p>
     <%= link_to @sessions_as_therapist_confirmed, therapy_sessions_path(rol: "therapist", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %><br>
     <p><%= link_to "#{@sessions_as_therapist_pending} pending", therapy_sessions_path(rol: "therapist", state: :pending), :class => "pending" %></p>
-    <p><%= link_to "#{@sessions_as_therapist_canceled} canceled", therapy_sessions_path(rol: "therapist", state: :canceled), :class => "canceled" %></p>
+    <p><%= link_to "#{@sessions_as_therapist_rejected} rejected", therapy_sessions_path(rol: "therapist", state: :rejected), :class => "rejected" %></p>
     <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "btn btn-default btn-lg", :id => "button-to-add" %>
 </div>
 <div class="jumbotron" id="sessions-as-patient">
     <p>Sessions as PATIENT</p>
     <%= link_to @sessions_as_patient_confirmed, therapy_sessions_path(rol: "patient", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %>
     <p><%= link_to "#{@sessions_as_patient_pending} pending", therapy_sessions_path(rol: "patient", state: :pending), :class => "pending" %></p>
-    <p><%= link_to "#{@sessions_as_patient_canceled} canceled", therapy_sessions_path(rol: "patient", state: :canceled), :class => "canceled" %></p>
+    <p><%= link_to "#{@sessions_as_patient_rejected} rejected", therapy_sessions_path(rol: "patient", state: :rejected), :class => "rejected" %></p>
     <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "btn btn-default btn-lg", :id => "button-to-add" %>
 </div>
 <table class="table">
@@ -31,7 +31,7 @@
             <% elsif index == 1 %>
               <td class="warning pending" ><%= link_to val, therapy_sessions_path(state: :pending, supervisor_id: supervisor.id), :class => "pending" %></td>
             <% elsif index == 2 %>
-              <td class="danger canceled" ><%= link_to val, therapy_sessions_path(state: :canceled, supervisor_id: supervisor.id), :class => "canceled" %></td>
+              <td class="danger rejected" ><%= link_to val, therapy_sessions_path(state: :rejected, supervisor_id: supervisor.id), :class => "rejected" %></td>
             <% end %>
           <% end %>
         </tr>

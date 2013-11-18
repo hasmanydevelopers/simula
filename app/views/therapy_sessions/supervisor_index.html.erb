@@ -2,12 +2,12 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
       <button id="sessions-count-btn" type="button" class="<%= state %> navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
-      <a id="state-detail" class="navbar-brand"><%= state %> sessions</a>
+      <a id="state-detail" class="navbar-brand"><%= state == :pending ? "Sessions #{state} for confirmation" : "#{state} sessions" %></a>
     </div>
     <ul class="collapse navbar-collapse nav navbar-nav" id="<%= state %>">
       <% if sessions_by_date[1].count == 0 %>
         <li>
-          <a id="sessions-index-msg" class="navbar-brand">You don't have <%= state %> sessions.</a>
+          <a id="sessions-index-msg" class="navbar-brand"><%= state == :pending ? "You have no sessions #{state} for confirmation." : "You have no #{state} sessions." %></a>
         </li>
       <% else %>
         <% sessions_by_date[1].each do |date, sessions| %>
@@ -30,21 +30,21 @@
                         <td id="edit-btn">
                           <div class="btn-group">
                             <%= content_tag(:a, content_tag(:span, "", :class => "glyphicon glyphicon-ok"), :class => "confirm-btn active btn btn-default btn-lg") %>
-                            <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(s.id), method: :get, :class => "cancel-btn no-active btn btn-default btn-lg" %>
+                            <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(s.id), method: :get, :class => "reject-btn no-active btn btn-default btn-lg" %>
                           </div>
                         </td>
-                      <% elsif s.state == "canceled" %>
+                      <% elsif s.state == "rejected" %>
                         <td id="edit-btn">
                           <div class="btn-group">
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-ok"), change_therapy_session_state_path(s.id), method: :get, :class => "confirm-btn no-active btn btn-default btn-lg" %>
-                            <%= content_tag(:a, content_tag(:span, "", :class => "glyphicon glyphicon-remove"), :class => "cancel-btn active btn btn-default btn-lg") %>
+                            <%= content_tag(:a, content_tag(:span, "", :class => "glyphicon glyphicon-remove"), :class => "reject-btn active btn btn-default btn-lg") %>
                           </div>
                         </td>
                       <% else %>
                         <td id="edit-btn">
                           <div class="btn-group">
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-ok"), change_therapy_session_state_path(id: s.id, new_state: :confirmed), method: :get, :class => "confirm-btn btn btn-default btn-lg" %>
-                            <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(id: s.id, new_state: :canceled), method: :get, :class => "cancel-btn btn btn-default btn-lg" %>
+                            <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(id: s.id, new_state: :rejected), method: :get, :class => "reject-btn btn btn-default btn-lg" %>
                           </div>
                         </td>
                       <% end %>

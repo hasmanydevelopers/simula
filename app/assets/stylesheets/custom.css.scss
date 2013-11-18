@@ -91,7 +91,7 @@ label {
 
 /* Student's home page */
 
-a.confirmed, a.pending, a.canceled {
+a.confirmed, a.pending, a.rejected {
     text-decoration: none;
 }
 
@@ -129,7 +129,7 @@ a.confirmed, a.pending, a.canceled {
     }
 }
 
-.canceled {
+.rejected {
     color: #CC0000;
     &:hover {
         color: #CC0000;
@@ -191,7 +191,7 @@ a.confirmed, a.pending, a.canceled {
     font-size: 120%;
 }
 
-.success.confirmed, .warning.pending, .danger.canceled {
+.success.confirmed, .warning.pending, .danger.rejected {
     vertical-align: middle;
     text-align:center;
     font-weight: bold;
@@ -246,7 +246,7 @@ a.confirmed, a.pending, a.canceled {
     text-align: center;
 }
 
-.no-active.confirm-btn, .no-active.cancel-btn {
+.no-active.confirm-btn, .no-active.reject-btn {
     width: 52px;
 }
 
@@ -257,14 +257,14 @@ a.confirmed, a.pending, a.canceled {
     cursor: default;
 }
 
-.active.cancel-btn {
+.active.reject-btn {
     background-color: #f2dede;
     border-color: #cccccc;
     width: 80px;
     cursor: default;
 }
 
-.confirm-btn, .cancel-btn {
+.confirm-btn, .reject-btn {
     width: 65.75px;
 }
 
@@ -307,4 +307,12 @@ a.confirmed, a.pending, a.canceled {
         width: 100%;
         float: none;
     }
+}
+
+@media screen and (max-width: 388px) {
+
+    #state-detail {
+        width: 258px;
+    }
+
 }

@@ -2,14 +2,14 @@ class TherapySessionsController < ApplicationController
 
   def new_as_therapist
     @therapy_session = TherapySession.new
-    @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-    @posible_supervisors =  Users::Supervisor.all
+    @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+    @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
   end
 
   def new_as_patient
     @therapy_session = TherapySession.new
-    @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-    @posible_supervisors =  Users::Supervisor.all
+    @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+    @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
   end
 
   def create_as_therapist
@@ -27,8 +27,8 @@ class TherapySessionsController < ApplicationController
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-      @posible_supervisors =  Users::Supervisor.all
+      @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+      @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
       render "new_as_therapist"
     end
   end
@@ -48,20 +48,20 @@ class TherapySessionsController < ApplicationController
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-      @posible_supervisors = Users::Supervisor.all
+      @posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+      @posible_supervisors = Users::Supervisor.order(first_name: :asc)
       render "new_as_patient"
     end
   end
 
   def edit
-    @posible_supervisors =  Users::Supervisor.all
+    @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
     @therapy_session = TherapySession.find(params[:id])
     if @therapy_session.therapist_id == current_user.id
-      @posible_patients = partners_to_select(@therapy_session.patient_id)
+      @posible_patients = Users::Student.where("(group_id = #{current_user.group_id} and id != #{current_user.id}) or id = #{@therapy_session.patient_id}").order(first_name: :asc)
       render "edit_as_therapist"
     else
-      @posible_therapists = partners_to_select(@therapy_session.therapist_id)
+      @posible_therapists = Users::Student.where("(group_id = #{current_user.group_id} and id != #{current_user.id}) or id = #{@therapy_session.therapist_id}").order(first_name: :asc)
       render "edit_as_patient"
     end
   end
@@ -79,12 +79,12 @@ class TherapySessionsController < ApplicationController
       else
         flash[:alert] = "Invalid form"
       end
-      @posible_supervisors =  Users::Supervisor.all
+      @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
       if @therapy_session.therapist_id == current_user.id
-        @posible_patients = partners_to_select(older_patient_id)
+        @posible_patients = Users::Student.where("(group_id = #{current_user.group_id} and id != #{current_user.id}) or id = #{older_patient_id}").order(first_name: :asc)
         render "edit_as_therapist"
       else
-        @posible_therapists = partners_to_select(older_therapist_id)
+        @posible_therapists = Users::Student.where("(group_id = #{current_user.group_id} and id != #{current_user.id}) or id = #{older_therapist_id}").order(first_name: :asc)
         render "edit_as_patient"
       end
     end
@@ -129,8 +129,8 @@ class TherapySessionsController < ApplicationController
   def change_state
     therapy_session = TherapySession.find(params[:id])
     if therapy_session.state == "confirmed"
-      therapy_session.cancel
-    elsif therapy_session.state == "canceled"
+      therapy_session.reject
+    elsif therapy_session.state == "rejected"
       therapy_session.confirm
     else
       therapy_session.state = params[:new_state]
@@ -143,23 +143,17 @@ class TherapySessionsController < ApplicationController
 
   def sessions_index_msg(state, rol, supervisor_id)
     if rol == "therapist"
-      return "You don't have #{state} sessions as therapist."
+      return state == "pending" ? "You have no sessions #{state} for confirmation as therapist." : "You have no #{state} sessions as therapist."
     elsif rol == "patient"
-      return "You don't have #{state} sessions as patient."
+      return state == "pending" ? "You have no sessions #{state} for confirmation as patient." : "You have no #{state} sessions as patient."
     elsif current_user.type == "Users::Student"
       supervisor = Users::Supervisor.find(supervisor_id)
-      return "You don't have #{state} sessions with #{supervisor.complete_name}."
+      return state == "pending" ? "You have no sessions #{state} for confirmation with #{supervisor.complete_name}." : "You have no #{state} sessions with #{supervisor.complete_name}."
     end
   end
 
   def partners_to_select(partner_in_session_id)
-    partners_in_group = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id)
-    actual_choice = partners_in_group.find_by(id: partner_in_session_id)
-    if actual_choice.nil?
-      return partners_in_group + Users::Student.where(id: partner_in_session_id)
-    else
-      return partners_in_group
-    end
+    return Users::Student.where("(group_id = #{current_user.group_id} and id != #{current_user.id}) or id = #{partner_in_session_id}")
   end
 
   def dates_vs_sessions(sessions)
@@ -173,11 +167,11 @@ class TherapySessionsController < ApplicationController
 
   def index_supervisor
     sessions_pending = TherapySession.where(supervisor_id: current_user.id).where(state: :pending)
-    sessions_canceled = TherapySession.where(supervisor_id: current_user.id).where(state: :canceled)
+    sessions_rejected = TherapySession.where(supervisor_id: current_user.id).where(state: :rejected)
     sessions_confirmed = TherapySession.where(supervisor_id: current_user.id).where(state: :confirmed)
     sessions_list = {}
     sessions_list[:pending] = [sessions_pending.count, dates_vs_sessions(sessions_pending)]
-    sessions_list[:canceled] = [sessions_canceled.count, dates_vs_sessions(sessions_canceled)]
+    sessions_list[:rejected] = [sessions_rejected.count, dates_vs_sessions(sessions_rejected)]
     sessions_list[:confirmed] = [sessions_confirmed.count, dates_vs_sessions(sessions_confirmed)]
     return sessions_list
   end
