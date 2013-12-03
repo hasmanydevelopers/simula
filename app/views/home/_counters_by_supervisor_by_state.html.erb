@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th id="name-label"><p>Supervisor</p></th>
+      <th></th>
+      <th id="times-label" colspan="3"><p># Sessions</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @supervisor_vs_times.each do |supervisor, times| %>
+      <tr>
+        <td class="name-value" ><%= supervisor.complete_name %></td>
+        <td></td>
+        <% times.each_with_index do |val, index| %>
+          <% if  index == 0 %>
+            <td class="success confirmed" ><%= link_to val, therapy_sessions_path(state: :confirmed, supervisor_id: supervisor.id), :class => "confirmed" %></td>
+          <% elsif index == 1 %>
+            <td class="warning pending" ><%= link_to val, therapy_sessions_path(state: :pending, supervisor_id: supervisor.id), :class => "pending" %></td>
+          <% elsif index == 2 %>
+            <td class="danger rejected" ><%= link_to val, therapy_sessions_path(state: :rejected, supervisor_id: supervisor.id), :class => "rejected" %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

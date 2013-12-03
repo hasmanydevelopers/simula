@@ -1,25 +1,35 @@
 class TherapySessionsController < ApplicationController
+  include StudentHomeFunctions
 
   def new_as_therapist
     @therapy_session = TherapySession.new
     @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
     @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
+    render layout: false
   end
 
   def new_as_patient
     @therapy_session = TherapySession.new
     @posible_therapists =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
     @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
+    render layout: false
   end
 
   def create_as_therapist
     @therapy_session = TherapySession.new(therapy_session_params)
     if @therapy_session.save
+      @sessions_as_therapist_confirmed = current_user.sessions_as_therapist.where(state: :confirmed).count
+      @sessions_as_patient_confirmed = current_user.sessions_as_patient.where(state: :confirmed).count
+      @sessions_as_therapist_pending = current_user.sessions_as_therapist.where(state: :pending).count
+      @sessions_as_patient_pending = current_user.sessions_as_patient.where(state: :pending).count
+      @sessions_as_therapist_rejected = current_user.sessions_as_therapist.where(state: :rejected).count
+      @sessions_as_patient_rejected = current_user.sessions_as_patient.where(state: :rejected).count
+      @supervisor_vs_times = supervisor_vs_times
       flash.now[:notice] = "Your therapy session as therapist was saved successfully."
-      redirect_to :root
+      render "after_success_at_new", layout: false
     else
       if @therapy_session.patient_id.nil?
-          flash.now[:alert] = "You have to select a patient."
+        flash.now[:alert] = "You have to select a patient."
       elsif @therapy_session.supervisor_id.nil?
         flash.now[:alert] = "You have to select a supervisor."
       elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
@@ -27,17 +37,24 @@ class TherapySessionsController < ApplicationController
       else
         flash.now[:alert] = "Invalid form"
       end
-      @posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
-      @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
-      render "new_as_therapist"
+      #@posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+      #@posible_supervisors =  Users::Supervisor.order(first_name: :asc)
+      render "alert_at_new", layout: false
     end
   end
 
   def create_as_patient
     @therapy_session = TherapySession.new(therapy_session_params)
     if @therapy_session.save
+      @sessions_as_therapist_confirmed = current_user.sessions_as_therapist.where(state: :confirmed).count
+      @sessions_as_patient_confirmed = current_user.sessions_as_patient.where(state: :confirmed).count
+      @sessions_as_therapist_pending = current_user.sessions_as_therapist.where(state: :pending).count
+      @sessions_as_patient_pending = current_user.sessions_as_patient.where(state: :pending).count
+      @sessions_as_therapist_rejected = current_user.sessions_as_therapist.where(state: :rejected).count
+      @sessions_as_patient_rejected = current_user.sessions_as_patient.where(state: :rejected).count
+      @supervisor_vs_times = supervisor_vs_times
       flash.now[:notice] = "Your therapy session as patient was registered successfully."
-      redirect_to :root
+      render "after_success_at_new", layout: false
     else
       if @therapy_session.therapist_id.nil?
         flash.now[:alert] = "You have to select a therapist."
@@ -48,9 +65,9 @@ class TherapySessionsController < ApplicationController
       else
         flash.now[:alert] = "Invalid form"
       end
-      @posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
-      @posible_supervisors = Users::Supervisor.order(first_name: :asc)
-      render "new_as_patient"
+      #@posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
+      #@posible_supervisors = Users::Supervisor.order(first_name: :asc)
+      render "alert_at_new", layout: false
     end
   end
 
