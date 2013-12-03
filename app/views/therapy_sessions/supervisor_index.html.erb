@@ -1,7 +1,7 @@
 <% @sessions_list.each do |state, sessions_by_date| %>
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-      <button id="sessions-count-btn" type="button" class="<%= state %> navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
+      <button type="button" class="<%= state %> sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
       <a id="state-detail" class="navbar-brand"><%= state == :pending ? "Sessions #{state} for confirmation" : "#{state} sessions" %></a>
     </div>
     <ul class="collapse navbar-collapse nav navbar-nav" id="<%= state %>">
@@ -13,10 +13,10 @@
         <% sessions_by_date[1].each do |date, sessions| %>
           <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
-                <button id="sessions-count-btn" type="button" class="<%= state %> navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= date %>"><%= sessions.count %></button>
+                <button type="button" class="<%= state %> sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %><%= date %>"><%= sessions.count %></button>
                 <a id="date-detail" class="navbar-brand"><%= date %></a>
             </div>
-            <ul class="sessions-by-date collapse navbar-collapse nav navbar-nav" id="<%= date %>">
+            <ul class="sessions-by-date collapse navbar-collapse nav navbar-nav" id="<%= state %><%= date %>">
               <table class=""table table-striped"">
                 <tbody>
                   <% sessions.each do |s| %>
