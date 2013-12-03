@@ -100,12 +100,14 @@ a.confirmed, a.pending, a.rejected {
     &:hover {
         color: #006600;
     }
-    &#sessions-count-btn {
+    &.sessions-count-btn {
         background-color: #dff0d8;
         outline-color: #dff0d8;
         &.navbar-toggle {
+            background-color: #dff0d8;
             outline-color: #006600;
             &.collapsed {
+                background-color: #dff0d8;
                 outline-color: #006600;
             }
         }
@@ -117,12 +119,14 @@ a.confirmed, a.pending, a.rejected {
     &:hover {
         color: #FFCC00;
     }
-    &#sessions-count-btn {
+    &.sessions-count-btn {
         background-color: #fcf8e3;
         outline-color: #fcf8e3;
         &.navbar-toggle {
+            background-color: #fcf8e3;
             outline-color: #FFCC00;
             &.collapsed {
+                background-color: #fcf8e3;
                 outline-color: #FFCC00;
             }
         }
@@ -134,12 +138,14 @@ a.confirmed, a.pending, a.rejected {
     &:hover {
         color: #CC0000;
     }
-    &#sessions-count-btn {
+    &.sessions-count-btn {
         background-color: #f2dede;
         outline-color: #f2dede;
         &.navbar-toggle {
+            background-color: #f2dede;
             outline-color: #CC0000;
             &.collapsed {
+                background-color: #f2dede;
                 outline-color: #CC0000;
             }
         }
@@ -207,6 +213,7 @@ a.confirmed, a.pending, a.rejected {
 
 .sessions-by-date {
     padding: 0 0 0 38px;
+    max-height: 100%;
 }
 
 #date-detail, #state-detail, #sessions-index-msg  {
@@ -237,7 +244,7 @@ a.confirmed, a.pending, a.rejected {
     width: 131px;
 }
 
-#sessions-count-btn {
+.sessions-count-btn {
     font-weight: bold;
     margin: 0 0 0 0;
 }
@@ -266,6 +273,10 @@ a.confirmed, a.pending, a.rejected {
 
 .confirm-btn, .reject-btn {
     width: 65.75px;
+}
+
+#pending, #rejected, #confirmed {
+    max-height: 100%;
 }
 
 /* Edit session page */

@@ -6,7 +6,7 @@
   <% @sessions_list.each do |date, sessions| %>
     <nav class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
-          <button id="sessions-count-btn" type="button" class="<%= @state %> navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= date %>"><%= sessions.count %></button>
+          <button type="button" class="<%= @state %> sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= date %>"><%= sessions.count %></button>
           <a id="date-detail" class="navbar-brand"><%= date %></a>
       </div>
       <ul class="sessions-by-date collapse navbar-collapse nav navbar-nav" id="<%= date %>">
