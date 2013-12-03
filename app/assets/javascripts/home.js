@@ -10,14 +10,14 @@ $(document).ready(function() {
         ev.stopPropagation();
         var alerts = $('.alert.alert-success');
         alerts.remove();
-        $('.jumbotron').remove();
-        var url = $(this).attr('ajax_path');
+        $('#first-part-sh').find('.jumbotron').remove();
+        var url = $(this).attr('href');
         $.ajax(url, {
             success: function(response) {
-            $('#first-part-sh').html(response).slideDown();
+                $('#first-part-sh').html(response).slideDown();
             },
             error: function(request, errorType, errorMessage) {
-            alert('Error: ' + errorType + ' with message: ' + errorMessage);
+                alert('Error: ' + errorType + ' with message: ' + errorMessage);
             }
         });
     });
@@ -28,28 +28,28 @@ $(document).ready(function() {
         var container = $('#first-part-sh');
         var form = container.find('form');
 
-        function getChosenSupervisorName() {
+        var getChosenSupervisorName = function() {
             chosenSupervisor = form.find('#therapy_session_supervisor_id');
-            var chosenSupervisorId = +chosenSupervisor.val();
+            var chosenSupervisorId = chosenSupervisor.val();
             var chosenSupervisorName = '';
             $.each(chosenSupervisor.find('option'), function() {
-                if (+$(this).attr('value') === chosenSupervisorId) {
+                if ($(this).attr('value') === chosenSupervisorId) {
                      chosenSupervisorName = $(this).text();
                 }
             });
             return chosenSupervisorName;
-        }
+        };
 
-        function editPendingSessionsNumber(supervisorName) {
+        var editPendingSessionsNumber = function(supervisorName) {
             var allSupervisors = $('.table').find('.name-value');
             $.each(allSupervisors, function() {
                 if ($(this).text() === supervisorName) {
                     var row = $(this).closest('tr');
                     var pendingColumn = row.find('a.pending');
-                    pendingColumn.text(+pendingColumn.text() + 1);
+                    pendingColumn.text(parseInt(pendingColumn.text(), 10) + 1);
                 }
             });
-        }
+        };
 
         var alerts = $('.alert.alert-danger');
         alerts.remove();
@@ -66,10 +66,11 @@ $(document).ready(function() {
                     parent.prepend(response).slideDown();
                 } else {
                     container.before(response).slideDown();
+                    window.scrollTo(0,0);
                 }
             },
             error: function(request, errorType, errorMessage) {
-            alert('Error: ' + errorType + ' with message: ' + errorMessage);
+                alert('Error: ' + errorType + ' with message: ' + errorMessage);
             }
         });
     });
