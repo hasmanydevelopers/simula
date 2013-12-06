@@ -120,8 +120,7 @@ class TherapySessionsController < ApplicationController
 
   def index
     if current_user.type == "Users::Supervisor"
-      sessions_list = index_supervisor
-      @sessions_list = sessions_list
+      @sessions_list = index_supervisor
       render "supervisor_index"
     else
       if params[:rol] == "therapist"
@@ -145,6 +144,7 @@ class TherapySessionsController < ApplicationController
 
   def change_state
     therapy_session = TherapySession.find(params[:id])
+    therapy_session_special_data = {old_state: therapy_session.state}
     if therapy_session.state == "confirmed"
       therapy_session.reject
     elsif therapy_session.state == "rejected"
@@ -153,7 +153,9 @@ class TherapySessionsController < ApplicationController
       therapy_session.state = params[:new_state]
     end
     therapy_session.save
-    redirect_to therapy_sessions_path
+    therapy_session_special_data[:event_date] = therapy_session.event_date
+    therapy_session_special_data[:new_state] = therapy_session.state
+    render json: therapy_session_special_data
   end
 
   private
@@ -177,7 +179,7 @@ class TherapySessionsController < ApplicationController
     dates = sessions.select(:event_date).distinct.order(event_date: :desc)
     sessions_list = {}
     dates.each do |d|
-      sessions_list[d.event_date] = sessions.where(event_date: d.event_date)
+      sessions_list[d.event_date] = sessions.where(event_date: d.event_date).order(updated_at: :desc)
     end
     return sessions_list
   end
@@ -194,6 +196,6 @@ class TherapySessionsController < ApplicationController
   end
 
   def therapy_session_params
-    params.require(:therapy_session).permit(:therapist_id, :patient_id, :creator_id, :supervisor_id, :event_date, :state, :state_event)
+    params.require(:therapy_session).permit(:therapist_id, :patient_id, :creator_id, :supervisor_id, :event_date, :state)
   end
 end

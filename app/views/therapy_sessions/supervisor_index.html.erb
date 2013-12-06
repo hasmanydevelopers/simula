@@ -1,7 +1,7 @@
 <% @sessions_list.each do |state, sessions_by_date| %>
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-      <button type="button" class="<%= state %> sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
+      <button type="button" class="<%= state %> outer-btn sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
       <a id="state-detail" class="navbar-brand"><%= state == :pending ? "Sessions #{state} for confirmation" : "#{state} sessions" %></a>
     </div>
     <ul class="collapse navbar-collapse nav navbar-nav" id="<%= state %>">
@@ -13,35 +13,35 @@
         <% sessions_by_date[1].each do |date, sessions| %>
           <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
-                <button type="button" class="<%= state %> sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %><%= date %>"><%= sessions.count %></button>
+                <button type="button" class="<%= state %> inner-btn sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %><%= date %>"><%= sessions.count %></button>
                 <a id="date-detail" class="navbar-brand"><%= date %></a>
             </div>
             <ul class="sessions-by-date collapse navbar-collapse nav navbar-nav" id="<%= state %><%= date %>">
-              <table class=""table table-striped"">
+              <table>
                 <tbody>
                   <% sessions.each do |s| %>
-                    <tr>
+                    <tr data-session-updated-at="<%= s.updated_at %>" >
                       <td id="people-column">
                         <li type="circle"><b><%= s.therapist.complete_name %></b><br>
                           <%= s.patient.complete_name %>
                         </li>
                       </td>
                       <% if s.state == "confirmed" %>
-                        <td id="edit-btn">
+                        <td class="edit-btn">
                           <div class="btn-group">
                             <%= content_tag(:a, content_tag(:span, "", :class => "glyphicon glyphicon-ok"), :class => "confirm-btn active btn btn-default btn-lg") %>
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(s.id), method: :get, :class => "reject-btn no-active btn btn-default btn-lg" %>
                           </div>
                         </td>
                       <% elsif s.state == "rejected" %>
-                        <td id="edit-btn">
+                        <td class="edit-btn">
                           <div class="btn-group">
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-ok"), change_therapy_session_state_path(s.id), method: :get, :class => "confirm-btn no-active btn btn-default btn-lg" %>
                             <%= content_tag(:a, content_tag(:span, "", :class => "glyphicon glyphicon-remove"), :class => "reject-btn active btn btn-default btn-lg") %>
                           </div>
                         </td>
                       <% else %>
-                        <td id="edit-btn">
+                        <td class="edit-btn">
                           <div class="btn-group">
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-ok"), change_therapy_session_state_path(id: s.id, new_state: :confirmed), method: :get, :class => "confirm-btn btn btn-default btn-lg" %>
                             <%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), change_therapy_session_state_path(id: s.id, new_state: :rejected), method: :get, :class => "reject-btn btn btn-default btn-lg" %>
@@ -50,7 +50,7 @@
                       <% end %>
                     </tr>
                   <% end %>
-                <tbody>
+                </tbody>
               </table>
             </ul>
           </nav>
