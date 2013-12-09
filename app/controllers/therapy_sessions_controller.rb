@@ -152,7 +152,7 @@ class TherapySessionsController < ApplicationController
     else
       therapy_session.state = params[:new_state]
     end
-    therapy_session.save
+    therapy_session.save!
     therapy_session_special_data[:event_date] = therapy_session.event_date
     therapy_session_special_data[:new_state] = therapy_session.state
     render json: therapy_session_special_data
