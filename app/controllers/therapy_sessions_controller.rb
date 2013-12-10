@@ -29,13 +29,13 @@ class TherapySessionsController < ApplicationController
       render "after_success_at_new", layout: false
     else
       if @therapy_session.patient_id.nil?
-        flash.now[:alert] = "You have to select a patient."
+        flash.now[:alert] = t(:select, {field: t(:patient)})
       elsif @therapy_session.supervisor_id.nil?
-        flash.now[:alert] = "You have to select a supervisor."
+        flash.now[:alert] = t(:select, {field: "supervisor"})
       elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash.now[:alert] = "Invalid date"
+        flash.now[:alert] = t(:invalid_date)
       else
-        flash.now[:alert] = "Invalid form"
+        flash.now[:alert] = t(:invalid_form)
       end
       #@posible_patients =  Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
       #@posible_supervisors =  Users::Supervisor.order(first_name: :asc)
@@ -57,13 +57,13 @@ class TherapySessionsController < ApplicationController
       render "after_success_at_new", layout: false
     else
       if @therapy_session.therapist_id.nil?
-        flash.now[:alert] = "You have to select a therapist."
+        flash.now[:alert] = t(:select, {field: t(:therapist)})
       elsif @therapy_session.supervisor_id.nil?
-        flash.now[:alert] = "You have to select a supervisor."
+        flash.now[:alert] = t(:select, {field: "supervisor"})
       elsif @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash.now[:alert] = "Invalid date"
+        flash.now[:alert] = t(:invalid_date)
       else
-        flash.now[:alert] = "Invalid form"
+        flash.now[:alert] = t(:invalid_form)
       end
       #@posible_therapists = Users::Student.where(group_id: current_user.group_id).where.not(id: current_user.id).order(first_name: :asc)
       #@posible_supervisors = Users::Supervisor.order(first_name: :asc)
@@ -88,13 +88,17 @@ class TherapySessionsController < ApplicationController
     older_patient_id = @therapy_session.patient_id
     older_therapist_id = @therapy_session.therapist_id
     if @therapy_session.update_attributes(therapy_session_params)
-      flash.now[:notice] = "Your therapy session as therapist was saved successfully."
+      if @therapy_session.therapist_id == current_user.id
+        flash[:notice] = t(:therapy_session_saved, {rol: t(:therapist)})
+      else
+        flash[:notice] = t(:therapy_session_saved, {rol: t(:patient)})
+      end
       redirect_to :root
     else
       if @therapy_session.event_date.nil? || @therapy_session.event_date > Date.today
-        flash.now[:alert] = "Invalid date"
+        flash.now[:alert] = t(:invalid_date)
       else
-        flash.now[:alert] = "Invalid form"
+        flash.now[:alert] = t(:invalid_form)
       end
       @posible_supervisors =  Users::Supervisor.order(first_name: :asc)
       if @therapy_session.therapist_id == current_user.id
@@ -110,9 +114,9 @@ class TherapySessionsController < ApplicationController
   def destroy
     therapy_session = TherapySession.find(params[:id])
     if therapy_session.therapist_id == current_user.id
-      flash.now[:notice] = "Your therapy session as therapist from #{therapy_session.event_date}, with #{therapy_session.patient.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
+      flash[:notice] = t(:therapy_session_deleted, {rol: t(:therapist), date: therapy_session.event_date, partner: therapy_session.patient.complete_name, supervisor: therapy_session.supervisor.complete_name})
     else
-      flash.now[:notice] = "Your therapy session as patient from #{therapy_session.event_date}, with #{therapy_session.therapist.complete_name} and #{therapy_session.supervisor.complete_name}, was deleted successfully."
+      flash[:notice] = t(:therapy_session_deleted, {rol: t(:patient), date: therapy_session.event_date, partner: therapy_session.therapist.complete_name, supervisor: therapy_session.supervisor.complete_name})
     end
     therapy_session.destroy
     redirect_to :root
@@ -162,12 +166,12 @@ class TherapySessionsController < ApplicationController
 
   def sessions_index_msg(state, rol, supervisor_id)
     if rol == "therapist"
-      return state == "pending" ? "You have no sessions #{state} for confirmation as therapist." : "You have no #{state} sessions as therapist."
+      return state == "pending" ? t(:no_pending_sessions, {rol: t(:therapist)}) : t(:no_sessions, {state: t(state), rol: t(:therapist)})
     elsif rol == "patient"
-      return state == "pending" ? "You have no sessions #{state} for confirmation as patient." : "You have no #{state} sessions as patient."
+      return state == "pending" ? t(:no_pending_sessions, {rol: t(:patient)}) : t(:no_sessions, {state: t(state), rol: t(:patient)})
     elsif current_user.type == "Users::Student"
       supervisor = Users::Supervisor.find(supervisor_id)
-      return state == "pending" ? "You have no sessions #{state} for confirmation with #{supervisor.complete_name}." : "You have no #{state} sessions with #{supervisor.complete_name}."
+      return state == "pending" ? t(:no_pending_sessions_with, {supervisor: supervisor.complete_name}) : t(:no_sessions_with, {state: t(state), supervisor: supervisor.complete_name})
     end
   end
 

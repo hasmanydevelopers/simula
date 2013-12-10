@@ -1,0 +1,16 @@
+es:
+  confirmed: "confirmadas"
+  invalid_date: "Fecha inválida."
+  invalid_form: "Formulario inválido."
+  no_pending_sessions: "No tienes sesiones pendientes por confirmar como %{rol}."
+  no_pending_sessions_with: "No tienes sesiones pendientes por confirmar con %{supervisor}."
+  no_sessions: "No tienes sesiones %{state} como %{rol}."
+  no_sessions_with: "No tienes sesiones %{state} con %{supervisor}."
+  patient: "paciente"
+  pending: "pendientes"
+  rejected: "rehazadas"
+  select: "Tienes que seleccionar un %{field}."
+  therapist: "terapeuta"
+  therapy_session_saved: "Tu sesión de terapia como %{rol} ha sido guardada exitosamente."
+  therapy_session_deleted: "Tu sesión de terapia como %{rol} del %{date}, con %{partner} y %{supervisor}, fue eliminada exitosamente."
+

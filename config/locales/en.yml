@@ -20,4 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  confirmed: "confirmed"
   hello: "Hello world"
+  invalid_date: "Invalid date."
+  invalid_form: "Invalid form."
+  no_pending_sessions: "You have no sessions pending for confirmation as %{rol}."
+  no_pending_sessions_with: "You have no sessions pending for confirmation with %{supervisor}."
+  no_sessions: "You have no %{state} sessions as %{rol}."
+  no_sessions_with: "You have no %{state} sessions with %{supervisor}."
+  patient: "patient"
+  pending: "pending"
+  rejected: "rejected"
+  select: "You have to select a %{field}."
+  therapist: "therapist"
+  therapy_session_saved: "Your therapy session as %{rol} was saved successfully."
+  therapy_session_deleted: "Your therapy session as %{rol} from %{date}, with %{partner} and %{supervisor}, was deleted successfully."

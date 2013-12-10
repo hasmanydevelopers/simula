@@ -1,13 +1,13 @@
 <%= devise_error_messages! %>
 <div class="jumbotron">
-    <h2>Forgot your password?</h2>
+    <h2>¿Olvidaste tu contraseña?</h2>
 
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
 
-      <div><%= f.label :email %><br />
+      <div><%= f.label :email, "Correo electrónico" %><br />
       <%= f.email_field :email, :autofocus => true %></div>
 
-      <div class="marg-sup-btn" ><%= f.submit "Send me the instructions", :class => 'btn btn-lg btn-success' %></div>
+      <div class="marg-sup-btn" ><%= f.submit "Enviarme las instrucciones", :class => 'btn btn-lg btn-success' %></div>
     <% end %>
 
     <div class="marg-sup-btn">

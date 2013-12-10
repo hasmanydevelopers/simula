@@ -1,27 +1,27 @@
 <div class="jumbotron">
-    <h2>Edit session as patient</h2>
+    <h2>Editar sesión como paciente</h2>
 
     <%= form_for @therapy_session, :url => update_therapy_session_path do |f| %>
       <%= f.hidden_field :patient_id, :value => current_user.id %>
       <%= f.hidden_field :creator_id, :value => current_user.id %>
       <%= f.hidden_field :state, :value => :pending %>
 
-      <div><%= f.label :event_date %><br />
+      <div><%= f.label "Fecha" %><br />
       <%= f.date_field :event_date %></div>
 
-      <div><%= f.label :therapist_id %><br />
+      <div><%= f.label "Terapeuta" %><br />
       <%= f.collection_select :therapist_id, @posible_therapists, :id, :complete_name, :prompt => true %></div>
 
       <div><%= f.label :supervisor_id %><br />
       <%= f.collection_select :supervisor_id, @posible_supervisors, :id, :complete_name, :prompt => true %></div>
 
       <div class="marg-sup-btn">
-        <%= f.submit "Save", :class => 'btn btn-lg btn-success' %>
-        <%= link_to "Delete", destroy_therapy_session_path(@therapy_session.id), :confirm => "Are you sure you want to delete this therapy session?", :method => :delete, :class => 'btn btn-lg btn-success', :id => "destroy-btn" %>
+        <%= f.submit "Guardar", :class => 'btn btn-lg btn-success' %>
+        <%= link_to "Eliminar", destroy_therapy_session_path(@therapy_session.id), :confirm => "¿Estás seguro de querer eliminar esta sesión de terapia?", :method => :delete, :class => 'btn btn-lg btn-success', :id => "destroy-btn" %>
       </div>
     <% end %>
 
     <div class="marg-sup-btn">
-        <%= link_to "Back", "/" %>
+        <%= link_to "Atrás", "/" %>
     </div>
 </div>

@@ -2,12 +2,12 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
       <button type="button" class="<%= state %> outer-btn sessions-count-btn navbar-toggle btn-lg" data-toggle="collapse" data-target="#<%= state %>"><%= sessions_by_date[0] %></button>
-      <a id="state-detail" class="navbar-brand"><%= state == :pending ? "Sessions #{state} for confirmation" : "#{state} sessions" %></a>
+      <a id="state-detail" class="navbar-brand"><%= state == :pending ? "Sesiones pendientes por confirmar" : "Sesiones " + t(state) %></a>
     </div>
     <ul class="collapse navbar-collapse nav navbar-nav" id="<%= state %>">
       <% if sessions_by_date[1].count == 0 %>
         <li>
-          <a id="sessions-index-msg" class="navbar-brand"><%= state == :pending ? "You have no sessions #{state} for confirmation." : "You have no #{state} sessions." %></a>
+          <a id="sessions-index-msg" class="navbar-brand"><%= state == :pending ? "No tienes sesiones pendientes por confirmar." : "No tienes sesiones " + t(state) + "."  %></a>
         </li>
       <% else %>
         <% sessions_by_date[1].each do |date, sessions| %>

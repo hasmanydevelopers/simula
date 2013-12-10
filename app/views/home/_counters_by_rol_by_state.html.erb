@@ -1,14 +1,14 @@
 <div class="jumbotron" id="sessions-as-therapist">
-  <p>Sessions as THERAPIST</p>
+  <p>Sesiones como TERAPEUTA</p>
   <%= link_to @sessions_as_therapist_confirmed, therapy_sessions_path(rol: "therapist", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %><br>
-  <p><%= link_to "#{@sessions_as_therapist_pending} pending", therapy_sessions_path(rol: "therapist", state: :pending), :class => "pending" %></p>
-  <p><%= link_to "#{@sessions_as_therapist_rejected} rejected", therapy_sessions_path(rol: "therapist", state: :rejected), :class => "rejected" %></p>
+  <p><%= link_to "#{@sessions_as_therapist_pending} " + t(:pending), therapy_sessions_path(rol: "therapist", state: :pending), :class => "pending" %></p>
+  <p><%= link_to "#{@sessions_as_therapist_rejected} " + t(:rejected), therapy_sessions_path(rol: "therapist", state: :rejected), :class => "rejected" %></p>
   <%= link_to "+", new_therapy_session_as_therapist_path, method: :get, :class => "button-to-add btn btn-default btn-lg" %>
 </div>
 <div class="jumbotron" id="sessions-as-patient">
-  <p>Sessions as PATIENT</p>
+  <p>Sesiones como PACIENTE</p>
   <%= link_to @sessions_as_patient_confirmed, therapy_sessions_path(rol: "patient", state: :confirmed), :class => "confirmed", :id => "number-sessions-confirmed" %>
-  <p><%= link_to "#{@sessions_as_patient_pending} pending", therapy_sessions_path(rol: "patient", state: :pending), :class => "pending" %></p>
-  <p><%= link_to "#{@sessions_as_patient_rejected} rejected", therapy_sessions_path(rol: "patient", state: :rejected), :class => "rejected" %></p>
+  <p><%= link_to "#{@sessions_as_patient_pending} " + t(:pending), therapy_sessions_path(rol: "patient", state: :pending), :class => "pending" %></p>
+  <p><%= link_to "#{@sessions_as_patient_rejected} " + t(:rejected), therapy_sessions_path(rol: "patient", state: :rejected), :class => "rejected" %></p>
   <%= link_to "+", new_therapy_session_as_patient_path, method: :get, :class => "button-to-add btn btn-default btn-lg" %>
 </div>

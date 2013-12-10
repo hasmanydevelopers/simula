@@ -1,23 +1,23 @@
 <div class="jumbotron">
-    <h2>New session as patient</h2>
+    <h2>Nueva sesión como paciente</h2>
 
     <%= form_for @therapy_session, :url => create_therapy_session_as_patient_path do |f| %>
       <%= f.hidden_field :patient_id, :value => current_user.id %>
       <%= f.hidden_field :creator_id, :value => current_user.id %>
 
-      <div><%= f.label :event_date %><br />
+      <div><%= f.label "Fecha" %><br />
       <%= f.date_field :event_date %></div>
 
-      <div><%= f.label :therapist_id %><br />
+      <div><%= f.label "Terapeuta" %><br />
       <%= f.collection_select :therapist_id, @posible_therapists, :id, :complete_name, :prompt => true %></div>
 
       <div><%= f.label :supervisor_id %><br />
       <%= f.collection_select :supervisor_id, @posible_supervisors.order('first_name ASC'), :id, :complete_name, :prompt => true %></div>
 
-      <div class="marg-sup-btn"><%= f.submit "Register", :class => 'btn btn-lg btn-success', :id => 'btn-to-submit-form-to-add' %></div>
+      <div class="marg-sup-btn"><%= f.submit "Registrar", :class => 'btn btn-lg btn-success', :id => 'btn-to-submit-form-to-add' %></div>
     <% end %>
 
     <div class="marg-sup-btn">
-        <%= link_to "Back", "/" %>
+        <%= link_to "Atrás", "/" %>
     </div>
 </div>
