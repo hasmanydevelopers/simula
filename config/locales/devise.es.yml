@@ -21,12 +21,11 @@ es:
       confirmation_instructions:
         subject: "Instrucciones de confirmación"
       reset_password_instructions:
-        action: "Cambiar mi contraseña"
-        greeting: "¡Hola %{recipient}!"
-        instruction: "Alguien ha solicitado un enlace para cambiar tu contraseña, lo que se puede realizar con el siguiente enlace."
-        instruction_2: "Si tú no lo has solicitado, por favor ignora este correo electrónico."
-        instruction_3: "Tu contraseña no será cambiada hasta que accedas el enlace y crees una nueva."
-        subject: "Instrucciones para reestablecer tu contraseña"
+        change: "Cambiar mi contraseña"
+        ignore: "Si no has solicitado esto, por favor ignora este mensaje."
+        someone_requested: "Alguien ha solicitado un enlace para cambiar tu contraseña, puedes cambiarla a través del siguiente enlace."
+        subject: "Instrucciones para cambiar tu contraseña"
+        wont_change: "Tu contraseña no cambiará hasta que accedas al enlace anterior y crees una nueva."
       unlock_instructions:
         subject: "Instrucciones de desbloqueo"
     omniauth_callbacks:
