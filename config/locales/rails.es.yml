@@ -195,5 +195,13 @@ es:
     errors:
       <<: *errors
   activerecord:
+    attributes:
+      user:
+        email: "Correo electrónico"
+        first_name: "Nombre"
+        last_name: "Apellido"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"
+        current_password: "Contraseña actual"
     errors:
       <<: *errors
